@@ -1,5 +1,5 @@
 ---
-title: "MedBionfo_Project"
+title: "EVA"
 listing:
   contents: posts
   feed: true
