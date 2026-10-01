@@ -2,34 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/about.html</loc>
-    <lastmod>2026-10-01T16:16:35.074Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nextflow/index.html</loc>
-    <lastmod>2026-10-01T16:16:35.074Z</lastmod>
+    <lastmod>2026-09-16T08:09:38.054Z</lastmod>
   </url>
   <url>
     <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nextflow_rnaseq/index.html</loc>
-    <lastmod>2026-10-01T16:16:35.074Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/pixi/index.html</loc>
-    <lastmod>2026-10-01T16:16:35.075Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/index.html</loc>
-    <lastmod>2026-10-01T16:16:35.074Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/quality-control/index.html</loc>
-    <lastmod>2026-10-01T16:16:35.075Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nf-core/index.html</loc>
-    <lastmod>2026-10-01T16:16:35.075Z</lastmod>
+    <lastmod>2026-09-18T07:55:48.911Z</lastmod>
   </url>
   <url>
     <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/containers/index.html</loc>
-    <lastmod>2026-10-01T16:16:35.074Z</lastmod>
+    <lastmod>2026-09-18T13:16:03.994Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nextflow/index.html</loc>
+    <lastmod>2026-10-01T15:54:12.912Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/pixi/index.html</loc>
+    <lastmod>2026-09-16T04:45:00.067Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nf-core/index.html</loc>
+    <lastmod>2026-09-17T14:52:50.140Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/quality-control/index.html</loc>
+    <lastmod>2026-09-18T08:14:02.014Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/index.html</loc>
+    <lastmod>2026-09-16T08:02:15.753Z</lastmod>
   </url>
 </urlset>

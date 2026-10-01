@@ -3,11 +3,11 @@
     "listing": "/index.html",
     "items": [
       "/posts/nf-core/index.html",
-      "/posts/nextflow_rnaseq/index.html",
       "/posts/nextflow/index.html",
+      "/posts/nextflow_rnaseq/index.html",
       "/posts/pixi/index.html",
-      "/posts/quality-control/index.html",
-      "/posts/containers/index.html"
+      "/posts/containers/index.html",
+      "/posts/quality-control/index.html"
     ]
   }
 ]
