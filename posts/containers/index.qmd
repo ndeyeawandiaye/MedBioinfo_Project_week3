@@ -1,0 +1,153 @@
+---
+title: "Containers"
+author: "Ndeye Awa Ndiaye"
+date: "2026-09-14"
+categories: [reproducibility, containers]
+image: "containers.webp"
+---
+# Containers
+
+## Why containers?
+
+Containers make bioinformatics analyses more **reproducible** by packaging software together with its dependencies and environment.
+
+They help avoid problems caused by:
+
+* Different operating systems or software versions
+* Conflicting dependencies
+* Outdated bioinformatics tools
+* Needing different versions of the same software
+
+A container image is **portable and immutable**, making it easier to run the same software environment on different systems.
+
+## Apptainer
+
+Several tools can be used to run containers, including Docker, Apptainer, and Podman.
+
+For **HPC and multi-user servers**, we commonly use **Apptainer**.
+
+## Downloading container images
+
+Container images can be downloaded from registries such as **Docker Hub** or **Seqera/Wave**.
+
+For example, from Docker Hub:
+
+```bash
+apptainer pull vcftools.sif docker://biocontainers/vcftools:v0.1.16-1-deb_cv1
+```
+
+From Seqera:
+
+```bash
+apptainer pull vcftools.sif oras://community.wave.seqera.io/library/vcftools:0.1.17--b541aa8d9f9213f9
+```
+
+The `.sif` file is the local Apptainer container image.
+
+## Running containers
+
+### `exec`
+
+`apptainer exec` runs a specific command inside the container:
+
+```bash
+apptainer exec vcftools.sif vcftools --version
+```
+
+This is particularly useful in bioinformatics because we usually want to run a specific tool inside the container.
+
+### `run`
+
+`apptainer run` executes the container's predefined `%runscript`:
+
+```bash
+apptainer run container.sif
+```
+
+### `shell`
+
+`apptainer shell` opens an interactive shell inside the container:
+
+```bash
+apptainer shell container.sif
+```
+
+You can then use the tools installed inside the container.
+
+## Binding directories
+
+By default, not all directories from the host system are accessible inside a container.
+
+The `-B` option allows you to **bind** a directory from the host into the container:
+
+```bash
+apptainer exec -B ../data:/rawdata container.sif ls /rawdata
+```
+
+Here, the host directory `../data` is accessible inside the container as `/rawdata`.
+
+## Containers with SLURM
+
+Apptainer can be used directly inside a SLURM batch job:
+
+```bash
+#!/bin/bash -l
+#SBATCH -A project_ID
+#SBATCH -t 30:00
+#SBATCH -n 1
+
+apptainer exec container_image.sif \
+    fastqc -o . --noextract ../data/*fastq.gz
+```
+
+This combines **SLURM resource management** with a reproducible software environment.
+
+## Building a container
+
+If a suitable container image does not already exist, you can build your own using a `.def` definition file.
+
+The main sections are:
+
+* `Bootstrap` / `From` → choose the base image
+* `%post` → install software and dependencies
+* `%environment` → configure environment variables
+* `%runscript` → define the default action of the container
+
+For example:
+
+```text
+Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+    apt-get -y update
+    apt-get -y install cowsay
+
+%environment
+    export LC_ALL=C
+
+%runscript
+    date | cowsay
+```
+
+Build the container with:
+
+```bash
+apptainer build mycontainer.sif mycontainer.def
+```
+
+Then run it with:
+
+```bash
+apptainer run mycontainer.sif
+```
+
+## `run` vs `exec`
+
+| Command           | Purpose                                         |
+| ----------------- | ----------------------------------------------- |
+| `apptainer run`   | Executes the container's `%runscript`           |
+| `apptainer exec`  | Runs a specific command inside the container    |
+| `apptainer shell` | Opens an interactive shell inside the container |
+
+**In bioinformatics workflows, `exec` is often the most useful command because it allows us to explicitly run a particular tool and version inside the container.**

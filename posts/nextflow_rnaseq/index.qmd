@@ -1,0 +1,390 @@
+---
+title: "Nextflow basic"
+author: "Ndeye Awa Ndiaye"
+date: "2026-09-16"
+categories:  [workflow, reproducibility, RNAseq]
+image: "rnaseq.webp"
+backgroundcolor: "#484a4b"
+---
+
+
+
+# Nextflow RNA-seq Pipeline
+
+## 1. Workflow objective
+
+Simple RNA-seq pipeline:
+
+```text
+Reads ──► FASTQC ───────────────┐
+                               ├──► MULTIQC
+Reads ──► QUANTIFICATION ──────┘
+                ▲
+                │
+Transcriptome ─► INDEX
+```
+
+### Tools
+
+* **Salmon** → transcript quantification
+* **FastQC** → read quality control
+* **MultiQC** → final QC report
+
+> **Key point:** `FASTQC` and `QUANTIFICATION` are independent and can run in parallel.
+
+---
+
+## 2. Nextflow configuration
+
+`nextflow.config`:
+
+```groovy
+process {
+    executor = "slurm"
+    time = '2.h'
+    cpus = 4
+}
+
+resume = true
+singularity.enabled = true
+
+executor {
+    account = 'your_project_account'
+}
+```
+
+### Meaning
+
+| Parameter                    | Purpose                      |
+| ---------------------------- | ---------------------------- |
+| `executor = "slurm"`         | Run processes on the cluster |
+| `time`                       | Maximum task runtime         |
+| `cpus`                       | Number of CPUs               |
+| `resume = true`              | Reuse cached results         |
+| `singularity.enabled = true` | Enable containers            |
+| `account`                    | SLURM project/account        |
+
+---
+
+## 3. Pipeline parameters
+
+```groovy
+params.reads = "$projectDir/data/ggal/gut_{1,2}.fq"
+params.transcriptome_file = "$projectDir/data/ggal/transcriptome.fa"
+params.multiqc = "$projectDir/multiqc"
+params.outdir = "results"
+```
+
+### $projectDir
+
+The main project directory.
+
+```text
+project/
+├── data/
+├── results/
+└── script.nf
+```
+
+---
+
+# 4. INDEX process
+
+```groovy
+process INDEX {
+
+    container 'oras://community.wave.seqera.io/library/salmon:2.7.0--cb05356ce9eb88b7'
+
+    publishDir "$params.outdir/salmon"
+
+    input:
+    path transcriptome
+
+    output:
+    path 'salmon_index'
+
+    script:
+    """
+    salmon index --threads $task.cpus \
+        -t $transcriptome \
+        -i salmon_index
+    """
+}
+```
+
+## container
+
+```groovy
+container 'oras://community.wave.seqera.io/library/salmon:2.7.0--cb05356ce9eb88b7'
+```
+
+The `container` specifies the software environment used to run the process.
+
+Here, the container provides:
+
+```text
+Software : Salmon
+Version  : 2.7.0
+Source   : Seqera Wave
+```
+
+It avoids installing Salmon directly on the cluster and helps ensure a **reproducible environment**.
+
+With:
+
+```groovy
+singularity.enabled = true
+```
+
+Nextflow can run the container using **Singularity/Apptainer**.
+
+> **Key point:**
+> `container` = **which software environment should run the process?**
+
+---
+
+# 5. publishDir
+
+```groovy
+publishDir "$params.outdir/salmon"
+```
+
+Publishes the process results to the specified output directory.
+
+Here:
+
+```text
+results/
+└── salmon/
+```
+
+The process itself runs inside the Nextflow `work/` directory. `publishDir` makes selected outputs available in a more convenient location.
+
+> **Key point:**
+> `publishDir` = **where should the results be published?**
+
+---
+
+# 6. tag
+
+In `QUANTIFICATION`:
+
+```groovy
+tag "Salmon on $sample_id"
+```
+
+`tag` gives a readable name to each task in the Nextflow logs.
+
+For example:
+
+```text
+Salmon on gut
+Salmon on liver
+Salmon on lung
+```
+
+> **Key point:**
+> `tag` = **how can I identify the task in the logs?**
+
+---
+
+# 7. publishDir with mode: 'copy'
+
+```groovy
+publishDir "$params.outdir/salmon", mode: 'copy'
+```
+
+`mode: 'copy'` tells Nextflow to make a **real copy** of the output.
+
+Without `mode: 'copy'`, published files may be symbolic links to files inside `work/`.
+
+With:
+
+```groovy
+mode: 'copy'
+```
+
+the published result is independent of the `work/` directory.
+
+> **Key point:**
+> `mode: 'copy'` = **make a real copy of the result**
+
+---
+
+# 8. QUANTIFICATION process
+
+```groovy
+process QUANTIFICATION {
+
+    container 'oras://community.wave.seqera.io/library/salmon:2.7.0--cb05356ce9eb88b7'
+
+    tag "Salmon on $sample_id"
+
+    publishDir "$params.outdir/salmon", mode: 'copy'
+
+    input:
+    path salmon_index
+    tuple val(sample_id), path(reads)
+
+    output:
+    path "$sample_id"
+
+    script:
+    """
+    salmon quant --threads $task.cpus \
+        --libType=U \
+        -i $salmon_index \
+        -1 ${reads[0]} \
+        -2 ${reads[1]} \
+        -o $sample_id
+    """
+}
+```
+
+### Inputs
+
+```groovy
+path salmon_index
+```
+
+→ Salmon index produced by `INDEX`.
+
+```groovy
+tuple val(sample_id), path(reads)
+```
+
+→ sample ID + paired-end reads.
+
+Example:
+
+```text
+gut → gut_1.fq + gut_2.fq
+```
+
+### Output
+
+```groovy
+path "$sample_id"
+```
+
+→ results directory for each sample.
+
+---
+
+# 9.  FASTQC process
+
+```groovy
+process FASTQC {
+
+    tag "FASTQC on $sample_id"
+
+    input:
+    tuple val(sample_id), path(reads)
+
+    output:
+    path "fastqc_${sample_id}_logs"
+
+    script:
+    """
+    mkdir fastqc_${sample_id}_logs
+    fastqc -o fastqc_${sample_id}_logs \
+        -f fastq -q ${reads}
+    """
+}
+```
+
+`FASTQC` uses the same reads as `QUANTIFICATION`.
+
+Therefore, both processes can run **in parallel**.
+
+---
+
+# 10. Pairing the reads
+
+```groovy
+channel
+    .fromFilePairs(params.reads, checkIfExists: true)
+    .set { read_pairs_ch }
+```
+
+For:
+
+```text
+gut_1.fq
+gut_2.fq
+liver_1.fq
+liver_2.fq
+```
+
+Nextflow creates:
+
+```text
+[gut,   [gut_1.fq, gut_2.fq]]
+[liver, [liver_1.fq, liver_2.fq]]
+```
+
+* `gut` → `sample_id`
+* `[gut_1.fq, gut_2.fq]` → paired-end reads
+
+---
+
+# 11. Main workflow
+
+```groovy
+workflow {
+
+    channel
+        .fromFilePairs(params.reads, checkIfExists: true)
+        .set { read_pairs_ch }
+
+    index_ch = INDEX(params.transcriptome_file)
+
+    quant_ch = QUANTIFICATION(
+        index_ch,
+        read_pairs_ch
+    )
+
+    fastqc_ch = FASTQC(read_pairs_ch)
+}
+```
+
+### Process connections
+
+```text
+transcriptome
+      │
+      ▼
+    INDEX
+      │
+      ▼
+salmon_index
+      │
+      ▼
+QUANTIFICATION
+      ▲
+      │
+paired-end reads
+      │
+      └──────────────► FASTQC
+```
+
+---
+
+# 12. Important Nextflow keywords
+
+| Keyword           | Meaning                          |
+| ----------------- | -------------------------------- |
+| `process`         | Defines a task                   |
+| `input`           | Input data                       |
+| `output`          | Produced results                 |
+| `script`          | Command to execute               |
+| `container`       | Software environment             |
+| `tag`             | Task identification in logs      |
+| `publishDir`      | Where to publish results         |
+| `mode: 'copy'`    | Make a real copy                 |
+| `channel`         | Transfers data between processes |
+| `fromFilePairs()` | Groups paired-end reads          |
+| `tuple`           | Groups multiple values together  |
+| `params`          | Workflow parameters              |
+| `$task.cpus`      | CPUs allocated to the task       |
+

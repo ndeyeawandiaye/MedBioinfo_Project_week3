@@ -1,0 +1,103 @@
+---
+title: "Quality Control"
+author: "Ndeye Awa Ndiaye"
+date: "2026-09-14"
+categories: [quality-control, sequencing, reproducibility]
+image: "sequencing.webp.jpg"
+---
+Quality control of sequencing data
+screen, slurm, pixi, FastQC, MultiQC
+
+## Quality Control of Sequencing Data
+
+Quality control (QC) is essential before downstream analysis because poor-quality sequencing data can affect the reliability of the results. **FastQC** is used to assess the quality of raw sequencing reads, while **MultiQC** summarizes results from multiple samples.
+
+### 🔬 Main concepts
+
+* **FASTQ** → common format for raw sequencing reads; each read contains the sequence and its quality scores.
+* **FastQC** → checks sequencing quality and provides an HTML report with different QC metrics.
+* **Pixi** → creates a reproducible environment and installs FastQC.
+* **SLURM** → manages computational resources and jobs on the HPC cluster.
+* **`srun`** → runs a command interactively on allocated HPC resources.
+* **`sbatch`** → submits a script as a batch job, which is useful for running analyses on multiple samples or repeating them later.
+* **MultiQC** → combines QC results from multiple FastQC reports into a single summary report.
+
+### 🧪 Typical QC workflow
+
+```text
+Raw FASTQ
+    ↓
+FastQC
+    ↓
+Individual QC reports
+    ↓
+MultiQC
+    ↓
+Combined QC report
+    ↓
+Assess data quality
+```
+
+### Screen / GNU Screen
+
+**Screen** (GNU Screen) is a terminal multiplexer. It allows you to start a persistent terminal session and run processes inside it. Processes continue running even when the session is detached or the connection is interrupted.
+
+#### Start a named session
+
+```bash
+screen -S fastqc
+```
+
+#### Detach from the session
+
+Press:
+
+```text
+Ctrl + a, then d
+```
+
+The processes inside the session will continue running.
+
+#### List running Screen sessions
+
+```bash
+screen -ls
+```
+
+#### Reattach to a session
+
+```bash
+screen -r fastqc
+```
+
+### Creating Symbolic Links
+The command below creates symbolic links to the original FASTQ files:
+ln -s path/to/common_data/wgs/*fastq.gz .
+
+### Why use symbolic links?
+Avoid duplicating large sequencing files.
+Keep the original raw data unchanged.
+Make files easily accessible from your analysis directory.
+Save storage space.
+
+
+### 💻 Example
+
+Run FastQC on HPC:
+
+```bash
+srun -A project_ID -t 15:00 -n 1 \
+  pixi run fastqc --noextract -o fastqc data/*fastq.gz
+```
+
+For a reproducible batch analysis:
+
+```bash
+sbatch fastqc.sh
+```
+
+### 🔑 Key takeaway
+
+**Pixi** manages the software environment → **SLURM** manages HPC resources → **FastQC** checks individual sequencing files → **MultiQC** summarizes the results.
+
+Before proceeding with downstream analysis, always **inspect the QC results and determine whether the data quality is suitable for the planned analysis**.

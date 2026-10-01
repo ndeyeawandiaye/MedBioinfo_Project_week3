@@ -1,0 +1,174 @@
+---
+title: "Introduction to Pixi"
+author: "Ndeye Awa Ndiaye"
+date: "2026-09-15"
+categories: [environments, reproducibility]
+image: "pixi_image.webp"
+---
+
+Pixi is a fast, modern, and reproducible package management tool for developers of all backgrounds.
+
+# Why Pixi?
+
+🔄 Reproducible Environments
+Create isolated environments that can be recreated consistently using lock files.
+
+📦 Dependency Management
+Manage project dependencies and software versions in a single configuration.
+
+🛠️ Task Management
+Define and run project tasks directly from the Pixi environment.
+
+🌐 Cross-Platform
+Use the same project environment across Linux, macOS, and Windows.
+
+🧩 Multiple Environments
+Define different environments for different use cases within the same project.
+
+🐍 Python Support
+Manage Python packages and dependencies, including packages from PyPI.
+
+💾 Efficient Storage
+Pixi can avoid unnecessary duplication of packages between environments.
+
+🌍 Global Tools
+Install command-line tools in isolated environments without modifying the system environment.
+
+# Installation
+
+Install Pixi using the official installation script:
+
+```bash
+ wget -qO- https://pixi.sh/install.sh | sh
+```
+
+After installation, restart your terminal or reload your shell configuration so that pixi is available in your PATH.
+
+#### For example:
+
+```bash
+ source ~/.bashrc
+```
+or, for Zsh:
+
+```bash
+ source ~/.zshrc
+ ```
+
+Then verify the installation:
+
+```bash
+ pixi --version
+```
+
+More information about pixi intallation are available  https://pixi.prefix.dev/latest/installation/
+
+# Creating a Pixi Environment
+
+To create a new Pixi environment, use `pixi init`:
+
+```bash
+pixi init name_pixi_training -c conda-forge -c bioconda
+```
+
+Pixi will create a folder named `name_pixi_training` containing a `pixi.toml` file.
+
+The `pixi.toml` file contains the main information about your project and its environment:
+
+```toml
+[workspace]
+channels = ["conda-forge", "bioconda"]
+name = "amrei_pixi_training"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+```
+
+### Understanding the pixi.toml file
+
+**1. Workspace**
+The `[workspace]` section contains the main configuration of the environment.
+
+**2. Channels**
+These are the sources from which Pixi can obtain packages and tools.
+
+**3. Project name**
+The name assigned to the Pixi project.
+
+**4. Platforms**
+The operating system and architecture for which the environment is configured.
+
+**5. Tasks**
+This section can be used to define commands that can be executed with Pixi. This is not covered in detail in this course.
+
+**6. Dependencies**
+This is where the software and packages installed in the environment are listed.
+
+### The pixi.lock file
+
+Pixi also creates a `pixi.lock` file. This file records the exact packages and versions used by the environment, together with information such as channels, package sources, licenses, and checksums.
+
+> **Important:** Do not delete the `pixi.toml` or `pixi.lock` files. They are essential for reproducing the environment.
+
+## Adding Software to the Environment
+
+Adding a dependency to the project tells Pixi to install that software.
+
+Use:
+
+```bash
+pixi add <package>
+```
+
+For example:
+
+```bash
+pixi add quarto
+```
+
+You should run `pixi add` from inside the Pixi project directory.
+
+## Running Software with Pixi
+
+Once a tool has been installed in the Pixi environment, you can run it using:
+
+```bash
+pixi run quarto --help
+```
+
+This works even if `quarto` is not installed globally on your system.
+
+In contrast:
+
+```bash
+quarto --help
+```
+
+may not work because Quarto is installed only inside the Pixi environment.
+
+## Entering the Environment
+
+Alternatively, you can enter the environment with:
+
+```bash
+pixi shell
+```
+
+Once inside the environment, you can use the installed tools directly:
+
+```bash
+quarto --help
+```
+
+This is somewhat similar to activating a Conda environment.
+
+To leave the environment:
+
+```bash
+exit
+```
+
+> **Note:** `pixi shell` may not be available or may behave differently on some HPC systems. For example, it does not work as expected on HPC2N. In such cases, `pixi run` can be used instead.

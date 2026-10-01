@@ -1,0 +1,212 @@
+---
+title: "nf-core"
+author: "Ndeye Awa Ndiaye"
+date: "2026-09-17"
+categories:  [nf-core, workflow, reproducibility, RNAseq, HPC]
+image: "nf-core-logo.png"
+---
+
+## nf-core
+
+**nf-core** is a community-driven collection of **open-source Nextflow pipelines** for bioinformatics. It also provides reusable **modules**, training materials, documentation standards, and development templates.
+
+### Why use nf-core?
+
+* 🧬 Ready-to-use pipelines for many bioinformatics analyses
+* 🔄 **Reproducible and portable** through Nextflow and containers
+* 📚 Extensive and standardized documentation
+* 📦 Reusable modules and standardized workflows
+* ⚙️ Input validation and standardized configuration
+* 🔁 Supports Nextflow features such as parallel execution and `resume`
+
+> **Important:** nf-core pipelines should not be treated as black boxes. You are still responsible for checking whether the pipeline, input data quality, parameters, and outputs are appropriate for your analysis.
+
+### Finding a pipeline
+
+The [nf-core website](https://nf-co.re/) provides a catalog of available pipelines.
+
+For each pipeline, check:
+
+* **Usage** → how to run it and required inputs
+* **Parameters** → available options
+* **Output** → files and results produced
+
+For example, [nf-core/rnaseq](https://nf-co.re/rnaseq/) is a pipeline for RNA-seq analysis.
+
+
+### Running on an HPC cluster
+
+For HPC systems using **SLURM**, a configuration file defines how Nextflow should submit jobs and which resources are available.
+
+Important settings include:
+
+* `max_memory`
+* `max_cpus`
+* `max_time`
+* `executor = 'slurm'`
+
+For example, an HPC2N configuration can be downloaded with:
+
+```bash
+wget https://raw.githubusercontent.com/hpc2n/intro-course/master/exercises/NEXTFLOW/INTERACTIVE/hpc2n.config
+```
+
+The compute project must then be specified in the configuration.
+
+### Running a test pipeline
+
+Example using **nf-core/rnaseq**, a variant-calling pipeline:
+
+```bash
+pixi run nextflow run nf-core/rnaseq \
+  -profile test \
+  --outdir rnaseq_test \
+  -c hpc2n.config
+```
+
+Key options:
+
+* `pixi run` → use the Pixi environment
+* `nextflow run` → execute a Nextflow pipeline
+* `nf-core/sarek` → pipeline to run
+* `-profile test` → use the built-in test data/profile
+* `--outdir` → output directory
+* `-c` → HPC configuration file
+
+### 🔎 Important
+
+After running a pipeline, always check:
+
+**What happened? → What outputs were generated? → Are the results and pipeline appropriate for my data?**
+
+## Configure the Pipeline
+
+The **nf-core launcher** helps generate the parameters required to run the pipeline.
+
+For [nf-core/rnaseq](https://nf-co.re/rnaseq/), the main files to prepare are:
+
+* **Samplesheet (`.csv`)** → describes the samples and FASTQ files.
+* **Reference genome (`.fa`)** → the reference genome used for the analysis.
+* **GTF file (`.gtf`)** → provides the gene/transcript annotations.
+* **Parameter file (`nf-params.json`)** → contains the configuration of the run.
+* **HPC configuration (`hpc2n.config`)** → defines how Nextflow runs on the HPC cluster.
+
+Use **absolute paths** for files and directories, especially when working on an HPC system.
+
+### 1. Create the samplesheet
+
+Create a CSV file, for example:
+
+```text
+Samplesheet.csv
+```
+
+The samplesheet contains the following columns:
+
+```text
+sample,fastq_1,fastq_2,strandedness,seq_platform
+```
+
+Example:
+
+```csv
+sample,fastq_1,fastq_2,strandedness,seq_platform
+CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz,auto,ILLUMINA
+CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz,auto,ILLUMINA
+CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz,auto,ILLUMINA
+```
+
+* `sample` → sample identifier
+* `fastq_1` → forward/read 1 FASTQ file
+* `fastq_2` → reverse/read 2 FASTQ file
+* `strandedness` → library strandedness (`auto` in this example)
+* `seq_platform` → sequencing platform (`ILLUMINA` here)
+
+The FASTQ filenames should correspond to the files available in your `data/` directory.
+
+### 2. Add the reference files
+
+For the RNA-seq analysis, provide:
+
+* the **reference genome** in FASTA format (`.fa` or `.fa.gz`)
+* the corresponding **GTF annotation** (`.gtf` or `.gtf.gz`)
+
+For example:
+
+```text
+Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz
+Homo_sapiens.GRCh38.108.gtf.gz
+```
+
+These files should be accessible from the HPC and their **absolute paths** should be specified in the parameter file.
+
+### 3. Create the parameter file
+
+Create a file named:
+
+```text
+nf-params.json
+```
+
+Example:
+
+```json
+{
+    "input": "/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/Samplesheet.csv",
+    "outdir": "/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/",
+    "fasta": "/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz",
+    "gtf": "/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/Homo_sapiens.GRCh38.108.gtf.gz",
+    "save_reference": true
+}
+```
+
+The main parameters are:
+
+* `input` → path to the samplesheet
+* `outdir` → directory where results will be saved
+* `fasta` → path to the reference genome
+* `gtf` → path to the GTF annotation
+* `save_reference` → must be added manually to the JSON file after using the nf-core launcher. Setting it to true tells the pipeline to save the reference files generated/prepared during the run for future reuse.
+
+### 4. Run the pipeline on HPC
+
+Use the HPC configuration file to specify the **SLURM executor and available resources**.
+
+```bash
+pixi run nextflow run nf-core/rnaseq \
+  -r 3.26.0 \
+  -resume \
+  -params-file nf-params.json \
+  -c hpc2n.config
+```
+
+The main components are:
+
+* `pixi run` → use the Pixi environment
+* `nextflow run` → run Nextflow
+* `nf-core/rnaseq` → RNA-seq pipeline
+* `-r 3.26.0` → pipeline version
+* `-resume` → reuse successfully completed processes
+* `-params-file nf-params.json` → use the pipeline parameters
+* `-c hpc2n.config` → use the HPC/SLURM configuration
+
+The pipeline can also be submitted through **SLURM using `sbatch`**.
+
+### 5. Monitor 
+
+Check running jobs:
+
+```bash
+squeue -u your_username
+```
+
+### Useful links
+
+* [nf-core](https://nf-co.re/)
+* [nf-core pipelines](https://nf-co.re/pipelines)
+* [nf-core/rnaseq](https://nf-co.re/rnaseq/)
+* [nf-core/Sarek](https://nf-co.re/sarek/)
+* [nf-core documentation](https://nf-co.re/docs/)
+* [Nextflow training](https://training.nextflow.io/latest/)
+* [Custom reference genomes](https://nf-co.re/docs/usage/reference_genomes#custom-genomes)
+

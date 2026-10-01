@@ -1,0 +1,247 @@
+---
+title: "Nextflow basic"
+author: "Ndeye Awa Ndiaye"
+date: "2026-09-16"
+categories:  [workflow, reproducibility, bioinformatics]
+image: "nextflow.png"
+backgroundcolor: "#2A363B"
+---
+An introduction to Nextflow and workflow managers, focusing on how they automate bioinformatics pipelines and improve reproducibility, portability, scalability, and resource management.
+
+
+### Nextflow - Key Points
+
+* **Processes** represent individual steps of a pipeline, while **channels** transfer data between processes.
+
+* **Modularity:** processes can be reused and combined into different workflows.
+
+* **Portability:** the same pipeline can run locally, on **HPC clusters**, or in the **cloud**, with environment-specific settings separated from the workflow logic.
+
+* **Reproducibility:** Nextflow integrates well with **Git, Docker, Apptainer, and Conda**.
+
+* **Scalability:** pipelines can process a few samples or thousands of samples, with independent processes running in parallel when possible.
+
+* **Resume:** Nextflow can resume a failed pipeline without recomputing successfully completed processes.
+
+* **Automation:** instead of running each analysis step manually, one command can execute and coordinate the entire pipeline.
+
+## Understanding Nextflow Processes and Channels
+
+For more detailed training, the official **Nextflow training** is available here: [training.nextflow.io](https://training.nextflow.io/latest/).
+
+### Process blocks
+
+In Nextflow, a **process** represents one step of a pipeline. It can run a command, a script, or a bioinformatics tool.
+
+A process generally contains four main parts:
+
+```nextflow
+process PROCESS_NAME {
+
+    // directives
+    container 'my_container'
+
+    input:
+    data z
+    data y
+    data x
+
+    output:
+    path x
+    path y
+    path z
+
+    script:
+    task1
+    task2
+    task3
+
+}
+```
+
+* **`input:`** defines the data that the process needs.
+* **Directives** specify how the process should be executed, for example which container, CPU, memory, or execution environment to use.
+* **`script:`** contains the commands that will actually be executed.
+* **`output:`** defines the files or data produced by the process.
+
+The important idea is that a process focuses on **one specific task**, while Nextflow takes care of connecting the different processes together.
+
+### Channels
+
+**Channels** are used to transfer data between processes.
+
+For example, the output of one process can be sent through a channel and become the input of another process:
+
+```text
+Process A
+    │
+    ▼
+ Channel
+    │
+    ▼
+Process B
+```
+
+This allows the different steps of a pipeline to communicate without having to manually manage the transfer of files between them.
+
+Nextflow has two main types of channels:
+
+### 1. Queue channels
+
+A **queue channel** behaves like a queue of data.
+
+Each item is consumed when a process reads it. Once an item has been consumed, it cannot normally be read again from the same queue channel.
+
+For example, imagine a channel containing three samples:
+
+```text
+Channel
+ ├── sample1
+ ├── sample2
+ └── sample3
+```
+
+A process can consume these samples one by one:
+
+```text
+sample1 → Process
+sample2 → Process
+sample3 → Process
+```
+
+This is particularly useful when processing many samples in a workflow.
+
+Queue channels are therefore useful when data should **flow through the pipeline and be consumed by downstream processes**.
+
+### 2. Value channels
+
+A **value channel** contains a single value that can be read **multiple times without being consumed**.
+
+For example:
+
+```text
+Value channel
+      │
+      ├──→ Process A
+      ├──→ Process B
+      └──→ Process C
+```
+
+All three processes can access the same value.
+
+This is useful when the same information needs to be reused by several processes, such as a reference genome, a parameter, or a configuration value.
+
+### Queue vs Value channels
+
+The main difference is therefore how the data is consumed:
+
+| Channel type      | Content                  | Can be read multiple times? |
+| ----------------- | ------------------------ | --------------------------- |
+| **Queue channel** | A stream/queue of values | ❌ Normally consumed once    |
+| **Value channel** | A single value           | ✅ Yes, unlimited times      |
+
+Understanding the difference is important when designing more complex Nextflow workflows, especially when the same data needs to be used by several processes.
+
+For more details, see the official Nextflow documentation on [channel types](https://www.nextflow.io/docs/latest/channel.html#channel-types).
+
+Execution Abstraction
+Process → defines what should be executed.
+
+Executor → defines where and how it is executed (local, HPC, cloud).
+
+This separation makes Nextflow workflows portable across different computing environments.
+
+Nextflow uses a Groovy-based DSL, but processes can run scripts written in Bash, Python, R, Perl, Ruby, etc.
+
+First Nextflow script — l’essentiel
+
+### Setup the environment
+
+```bash
+screen -S nextflow
+pixi init -c bioconda -c conda-forge
+pixi add nextflow 
+```
+
+### hello.nf structure
+
+* **`params`** → input parameters
+* **`process`** → processing steps
+* **`input` / `output`** → data entering/leaving a process
+* **`script`** → commands to execute
+* **`workflow`** → connects processes and channels
+* **`Channel.of()`** → creates a channel
+* **`.flatten()`** → splits elements for individual processing
+* **`.view()`** → displays channel contents
+
+**Key idea:** Processes do the work, channels transport data, and workflows connect the steps.
+
+### Run
+
+```bash
+pixi run nextflow run hello.nf
+```
+
+### Output
+
+* `executor > local` → runs locally
+* `SPLITLETTERS (1)` → 1 task
+* `CONVERTTOUPPER (2)` → 2 tasks, potentially in parallel
+* `96/fd5f07` → task ID / directory in `work/`
+* `HELLO`, `WORLD!` → final output
+
+**Important:** Parallel tasks do not guarantee output order.
+
+### -resume
+
+Nextflow **caches process results** and re-runs only the processes that changed.
+
+```bash
+pixi run nextflow run hello.nf -resume
+```
+
+**Key point:** unchanged processes are skipped and their cached results are reused.
+
+### Workflow parameters
+
+Define parameters with `params.name` and override them from the command line with `--name`:
+
+```bash
+pixi run nextflow run hello.nf -resume --greeting 'Bonjour le monde!'
+```
+
+### Configuration priority
+
+From **highest to lowest priority**:
+
+1. Command-line parameters
+2. `-params-file`
+3. `-c` configuration file
+4. `nextflow.config` in current directory
+5. Project `nextflow.config`
+6. `$HOME/.nextflow/config`
+7. Parameters defined in the script
+
+### Clean up
+
+View previous runs:
+
+```bash
+pixi run nextflow log
+```
+
+Clean the cache and `work/` directories:
+
+```bash
+pixi run nextflow clean -f
+```
+
+ Specify the run name and option as explained [Here](https://docs.seqera.io/nextflow/reference/cli#clean).
+
+Clean runs before a specific run:
+
+```bash
+pixi run nextflow clean -before <RUN_NAME> -f
+```
+
+**Key point:** Nextflow stores cached results in `work/`; clean it periodically when the cache is no longer needed.
