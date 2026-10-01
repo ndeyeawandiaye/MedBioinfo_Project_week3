@@ -10,64 +10,1874 @@
 <atom:link href="https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog built with Quarto</description>
 <generator>quarto-1.10.18</generator>
-<lastBuildDate>Sun, 13 Sep 2026 22:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 17 Sep 2026 00:00:00 GMT</lastBuildDate>
 <item>
-  <title>Post With Code</title>
-  <dc:creator>Harlow Malloc</dc:creator>
-  <link>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/post-with-code/</link>
+  <title>nf-core</title>
+  <dc:creator>Ndeye Awa Ndiaye</dc:creator>
+  <link>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nf-core/</link>
   <description><![CDATA[ 
 
 
 
 
 
-<p>This is a post with executable code.</p>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<section id="reproducible-research" class="level2">
-<h2 class="anchored" data-anchor-id="reproducible-research">1. Reproducible research</h2>
-<p>La recherche reproductible consiste à…</p>
+<section id="nf-core" class="level2">
+<h2 class="anchored" data-anchor-id="nf-core">nf-core</h2>
+<p><strong>nf-core</strong> is a community-driven collection of <strong>open-source Nextflow pipelines</strong> for bioinformatics. It also provides reusable <strong>modules</strong>, training materials, documentation standards, and development templates.</p>
+<section id="why-use-nf-core" class="level3">
+<h3 class="anchored" data-anchor-id="why-use-nf-core">Why use nf-core?</h3>
+<ul>
+<li>🧬 Ready-to-use pipelines for many bioinformatics analyses</li>
+<li>🔄 <strong>Reproducible and portable</strong> through Nextflow and containers</li>
+<li>📚 Extensive and standardized documentation</li>
+<li>📦 Reusable modules and standardized workflows</li>
+<li>⚙️ Input validation and standardized configuration</li>
+<li>🔁 Supports Nextflow features such as parallel execution and <code>resume</code></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Important:</strong> nf-core pipelines should not be treated as black boxes. You are still responsible for checking whether the pipeline, input data quality, parameters, and outputs are appropriate for your analysis.</p>
+</blockquote>
 </section>
-<section id="git" class="level2">
-<h2 class="anchored" data-anchor-id="git">2. Git</h2>
-<p>Git permet de suivre les modifications d’un projet.</p>
-<section id="commandes-importantes" class="level3">
-<h3 class="anchored" data-anchor-id="commandes-importantes">Commandes importantes</h3>
-<p>```bash git status git add . git commit -m “Initial commit” git push</p>
+<section id="finding-a-pipeline" class="level3">
+<h3 class="anchored" data-anchor-id="finding-a-pipeline">Finding a pipeline</h3>
+<p>The <a href="https://nf-co.re/">nf-core website</a> provides a catalog of available pipelines.</p>
+<p>For each pipeline, check:</p>
+<ul>
+<li><strong>Usage</strong> → how to run it and required inputs</li>
+<li><strong>Parameters</strong> → available options</li>
+<li><strong>Output</strong> → files and results produced</li>
+</ul>
+<p>For example, <a href="https://nf-co.re/rnaseq/">nf-core/rnaseq</a> is a pipeline for RNA-seq analysis.</p>
+</section>
+<section id="running-on-an-hpc-cluster" class="level3">
+<h3 class="anchored" data-anchor-id="running-on-an-hpc-cluster">Running on an HPC cluster</h3>
+<p>For HPC systems using <strong>SLURM</strong>, a configuration file defines how Nextflow should submit jobs and which resources are available.</p>
+<p>Important settings include:</p>
+<ul>
+<li><code>max_memory</code></li>
+<li><code>max_cpus</code></li>
+<li><code>max_time</code></li>
+<li><code>executor = 'slurm'</code></li>
+</ul>
+<p>For example, an HPC2N configuration can be downloaded with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">wget</span> https://raw.githubusercontent.com/hpc2n/intro-course/master/exercises/NEXTFLOW/INTERACTIVE/hpc2n.config</span></code></pre></div></div>
+<p>The compute project must then be specified in the configuration.</p>
+</section>
+<section id="running-a-test-pipeline" class="level3">
+<h3 class="anchored" data-anchor-id="running-a-test-pipeline">Running a test pipeline</h3>
+<p>Example using <strong>nf-core/rnaseq</strong>, a variant-calling pipeline:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run nextflow run nf-core/rnaseq <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb2-2">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-profile</span> test <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb2-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--outdir</span> rnaseq_test <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb2-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> hpc2n.config</span></code></pre></div></div>
+<p>Key options:</p>
+<ul>
+<li><code>pixi run</code> → use the Pixi environment</li>
+<li><code>nextflow run</code> → execute a Nextflow pipeline</li>
+<li><code>nf-core/sarek</code> → pipeline to run</li>
+<li><code>-profile test</code> → use the built-in test data/profile</li>
+<li><code>--outdir</code> → output directory</li>
+<li><code>-c</code> → HPC configuration file</li>
+</ul>
+</section>
+<section id="important" class="level3">
+<h3 class="anchored" data-anchor-id="important">🔎 Important</h3>
+<p>After running a pipeline, always check:</p>
+<p><strong>What happened? → What outputs were generated? → Are the results and pipeline appropriate for my data?</strong></p>
+</section>
+</section>
+<section id="configure-the-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="configure-the-pipeline">Configure the Pipeline</h2>
+<p>The <strong>nf-core launcher</strong> helps generate the parameters required to run the pipeline.</p>
+<p>For <a href="https://nf-co.re/rnaseq/">nf-core/rnaseq</a>, the main files to prepare are:</p>
+<ul>
+<li><strong>Samplesheet (<code>.csv</code>)</strong> → describes the samples and FASTQ files.</li>
+<li><strong>Reference genome (<code>.fa</code>)</strong> → the reference genome used for the analysis.</li>
+<li><strong>GTF file (<code>.gtf</code>)</strong> → provides the gene/transcript annotations.</li>
+<li><strong>Parameter file (<code>nf-params.json</code>)</strong> → contains the configuration of the run.</li>
+<li><strong>HPC configuration (<code>hpc2n.config</code>)</strong> → defines how Nextflow runs on the HPC cluster.</li>
+</ul>
+<p>Use <strong>absolute paths</strong> for files and directories, especially when working on an HPC system.</p>
+<section id="create-the-samplesheet" class="level3">
+<h3 class="anchored" data-anchor-id="create-the-samplesheet">1. Create the samplesheet</h3>
+<p>Create a CSV file, for example:</p>
+<pre class="text"><code>Samplesheet.csv</code></pre>
+<p>The samplesheet contains the following columns:</p>
+<pre class="text"><code>sample,fastq_1,fastq_2,strandedness,seq_platform</code></pre>
+<p>Example:</p>
+<pre class="csv"><code>sample,fastq_1,fastq_2,strandedness,seq_platform
+CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz,auto,ILLUMINA
+CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz,auto,ILLUMINA
+CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz,auto,ILLUMINA</code></pre>
+<ul>
+<li><code>sample</code> → sample identifier</li>
+<li><code>fastq_1</code> → forward/read 1 FASTQ file</li>
+<li><code>fastq_2</code> → reverse/read 2 FASTQ file</li>
+<li><code>strandedness</code> → library strandedness (<code>auto</code> in this example)</li>
+<li><code>seq_platform</code> → sequencing platform (<code>ILLUMINA</code> here)</li>
+</ul>
+<p>The FASTQ filenames should correspond to the files available in your <code>data/</code> directory.</p>
+</section>
+<section id="add-the-reference-files" class="level3">
+<h3 class="anchored" data-anchor-id="add-the-reference-files">2. Add the reference files</h3>
+<p>For the RNA-seq analysis, provide:</p>
+<ul>
+<li>the <strong>reference genome</strong> in FASTA format (<code>.fa</code> or <code>.fa.gz</code>)</li>
+<li>the corresponding <strong>GTF annotation</strong> (<code>.gtf</code> or <code>.gtf.gz</code>)</li>
+</ul>
+<p>For example:</p>
+<pre class="text"><code>Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz
+Homo_sapiens.GRCh38.108.gtf.gz</code></pre>
+<p>These files should be accessible from the HPC and their <strong>absolute paths</strong> should be specified in the parameter file.</p>
+</section>
+<section id="create-the-parameter-file" class="level3">
+<h3 class="anchored" data-anchor-id="create-the-parameter-file">3. Create the parameter file</h3>
+<p>Create a file named:</p>
+<pre class="text"><code>nf-params.json</code></pre>
+<p>Example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb8-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb8-2">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"input"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/Samplesheet.csv"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb8-3">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"outdir"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb8-4">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"fasta"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb8-5">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"gtf"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/Homo_sapiens.GRCh38.108.gtf.gz"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb8-6">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"save_reference"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">true</span></span>
+<span id="cb8-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<p>The main parameters are:</p>
+<ul>
+<li><code>input</code> → path to the samplesheet</li>
+<li><code>outdir</code> → directory where results will be saved</li>
+<li><code>fasta</code> → path to the reference genome</li>
+<li><code>gtf</code> → path to the GTF annotation</li>
+<li><code>save_reference</code> → must be added manually to the JSON file after using the nf-core launcher. Setting it to true tells the pipeline to save the reference files generated/prepared during the run for future reuse.</li>
+</ul>
+</section>
+<section id="run-the-pipeline-on-hpc" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-pipeline-on-hpc">4. Run the pipeline on HPC</h3>
+<p>Use the HPC configuration file to specify the <strong>SLURM executor and available resources</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run nextflow run nf-core/rnaseq <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb9-2">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-r</span> 3.26.0 <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb9-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-resume</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb9-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-params-file</span> nf-params.json <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb9-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> hpc2n.config</span></code></pre></div></div>
+<p>The main components are:</p>
+<ul>
+<li><code>pixi run</code> → use the Pixi environment</li>
+<li><code>nextflow run</code> → run Nextflow</li>
+<li><code>nf-core/rnaseq</code> → RNA-seq pipeline</li>
+<li><code>-r 3.26.0</code> → pipeline version</li>
+<li><code>-resume</code> → reuse successfully completed processes</li>
+<li><code>-params-file nf-params.json</code> → use the pipeline parameters</li>
+<li><code>-c hpc2n.config</code> → use the HPC/SLURM configuration</li>
+</ul>
+<p>The pipeline can also be submitted through <strong>SLURM using <code>sbatch</code></strong>.</p>
+</section>
+<section id="monitor" class="level3">
+<h3 class="anchored" data-anchor-id="monitor">5. Monitor</h3>
+<p>Check running jobs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">squeue</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-u</span> your_username</span></code></pre></div></div>
+</section>
+<section id="useful-links" class="level3">
+<h3 class="anchored" data-anchor-id="useful-links">Useful links</h3>
+<ul>
+<li><a href="https://nf-co.re/">nf-core</a></li>
+<li><a href="https://nf-co.re/pipelines">nf-core pipelines</a></li>
+<li><a href="https://nf-co.re/rnaseq/">nf-core/rnaseq</a></li>
+<li><a href="https://nf-co.re/sarek/">nf-core/Sarek</a></li>
+<li><a href="https://nf-co.re/docs/">nf-core documentation</a></li>
+<li><a href="https://training.nextflow.io/latest/">Nextflow training</a></li>
+<li><a href="https://nf-co.re/docs/usage/reference_genomes#custom-genomes">Custom reference genomes</a></li>
+</ul>
 
 
-</section>
 </section>
 </section>
 
  ]]></description>
-  <category>news</category>
-  <category>code</category>
-  <category>analysis</category>
-  <guid>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/post-with-code/</guid>
-  <pubDate>Sun, 13 Sep 2026 22:00:00 GMT</pubDate>
-  <media:content url="https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
+  <category>nf-core</category>
+  <category>workflow</category>
+  <category>reproducibility</category>
+  <category>RNAseq</category>
+  <category>HPC</category>
+  <guid>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nf-core/</guid>
+  <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nf-core/nf-core-logo.png" medium="image" type="image/png" height="102" width="144"/>
 </item>
 <item>
-  <title>Welcome To My Blog</title>
-  <dc:creator>Tristan O&#39;Malley</dc:creator>
-  <link>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/welcome/</link>
+  <title>Nextflow basic</title>
+  <dc:creator>Ndeye Awa Ndiaye</dc:creator>
+  <link>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nextflow_rnaseq/</link>
   <description><![CDATA[ 
 
 
 
 
 
-<p>This is the first post in a Quarto blog. Welcome!</p>
-<p><img src="https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
+<section id="nextflow-rna-seq-pipeline" class="level1">
+<h1>Nextflow RNA-seq Pipeline</h1>
+<section id="workflow-objective" class="level2">
+<h2 class="anchored" data-anchor-id="workflow-objective">1. Workflow objective</h2>
+<p>Simple RNA-seq pipeline:</p>
+<pre class="text"><code>Reads ──► FASTQC ───────────────┐
+                               ├──► MULTIQC
+Reads ──► QUANTIFICATION ──────┘
+                ▲
+                │
+Transcriptome ─► INDEX</code></pre>
+<section id="tools" class="level3">
+<h3 class="anchored" data-anchor-id="tools">Tools</h3>
+<ul>
+<li><strong>Salmon</strong> → transcript quantification</li>
+<li><strong>FastQC</strong> → read quality control</li>
+<li><strong>MultiQC</strong> → final QC report</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Key point:</strong> <code>FASTQC</code> and <code>QUANTIFICATION</code> are independent and can run in parallel.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="nextflow-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="nextflow-configuration">2. Nextflow configuration</h2>
+<p><code>nextflow.config</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb2-1">process <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb2-2">    executor <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"slurm"</span></span>
+<span id="cb2-3">    time <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'2.h'</span></span>
+<span id="cb2-4">    cpus <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span></span>
+<span id="cb2-5"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb2-6"></span>
+<span id="cb2-7">resume <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">true</span></span>
+<span id="cb2-8">singularity<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>enabled <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">true</span></span>
+<span id="cb2-9"></span>
+<span id="cb2-10">executor <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb2-11">    account <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'your_project_account'</span></span>
+<span id="cb2-12"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<section id="meaning" class="level3">
+<h3 class="anchored" data-anchor-id="meaning">Meaning</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>executor = "slurm"</code></td>
+<td>Run processes on the cluster</td>
+</tr>
+<tr class="even">
+<td><code>time</code></td>
+<td>Maximum task runtime</td>
+</tr>
+<tr class="odd">
+<td><code>cpus</code></td>
+<td>Number of CPUs</td>
+</tr>
+<tr class="even">
+<td><code>resume = true</code></td>
+<td>Reuse cached results</td>
+</tr>
+<tr class="odd">
+<td><code>singularity.enabled = true</code></td>
+<td>Enable containers</td>
+</tr>
+<tr class="even">
+<td><code>account</code></td>
+<td>SLURM project/account</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="pipeline-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="pipeline-parameters">3. Pipeline parameters</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb3-1">params<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>reads <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$projectDir</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/data/ggal/gut_{1,2}.fq"</span></span>
+<span id="cb3-2">params<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>transcriptome_file <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$projectDir</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/data/ggal/transcriptome.fa"</span></span>
+<span id="cb3-3">params<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>multiqc <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$projectDir</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/multiqc"</span></span>
+<span id="cb3-4">params<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>outdir <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"results"</span></span></code></pre></div></div>
+<section id="projectdir" class="level3">
+<h3 class="anchored" data-anchor-id="projectdir">$projectDir</h3>
+<p>The main project directory.</p>
+<pre class="text"><code>project/
+├── data/
+├── results/
+└── script.nf</code></pre>
+<hr>
+</section>
+</section>
+</section>
+<section id="index-process" class="level1">
+<h1>4. INDEX process</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb5-1">process INDEX <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb5-2"></span>
+<span id="cb5-3">    container <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'oras://community.wave.seqera.io/library/salmon:2.7.0--cb05356ce9eb88b7'</span></span>
+<span id="cb5-4"></span>
+<span id="cb5-5">    publishDir <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$params</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">outdir</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/salmon"</span></span>
+<span id="cb5-6"></span>
+<span id="cb5-7">    input<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb5-8">    path transcriptome</span>
+<span id="cb5-9"></span>
+<span id="cb5-10">    output<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb5-11">    path <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'salmon_index'</span></span>
+<span id="cb5-12"></span>
+<span id="cb5-13">    script<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb5-14">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"""</span></span>
+<span id="cb5-15"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    salmon index --threads </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$task</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">cpus</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb5-16"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        -t </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$transcriptome</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb5-17"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        -i salmon_index</span></span>
+<span id="cb5-18"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    """</span></span>
+<span id="cb5-19"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<section id="container" class="level2">
+<h2 class="anchored" data-anchor-id="container">container</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb6-1">container <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'oras://community.wave.seqera.io/library/salmon:2.7.0--cb05356ce9eb88b7'</span></span></code></pre></div></div>
+<p>The <code>container</code> specifies the software environment used to run the process.</p>
+<p>Here, the container provides:</p>
+<pre class="text"><code>Software : Salmon
+Version  : 2.7.0
+Source   : Seqera Wave</code></pre>
+<p>It avoids installing Salmon directly on the cluster and helps ensure a <strong>reproducible environment</strong>.</p>
+<p>With:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb8-1">singularity<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>enabled <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">true</span></span></code></pre></div></div>
+<p>Nextflow can run the container using <strong>Singularity/Apptainer</strong>.</p>
+<blockquote class="blockquote">
+<p><strong>Key point:</strong> <code>container</code> = <strong>which software environment should run the process?</strong></p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="publishdir" class="level1">
+<h1>5. publishDir</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb9-1">publishDir <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$params</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">outdir</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/salmon"</span></span></code></pre></div></div>
+<p>Publishes the process results to the specified output directory.</p>
+<p>Here:</p>
+<pre class="text"><code>results/
+└── salmon/</code></pre>
+<p>The process itself runs inside the Nextflow <code>work/</code> directory. <code>publishDir</code> makes selected outputs available in a more convenient location.</p>
+<blockquote class="blockquote">
+<p><strong>Key point:</strong> <code>publishDir</code> = <strong>where should the results be published?</strong></p>
+</blockquote>
+<hr>
+</section>
+<section id="tag" class="level1">
+<h1>6. tag</h1>
+<p>In <code>QUANTIFICATION</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb11-1">tag <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Salmon on </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$sample_id</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span></code></pre></div></div>
+<p><code>tag</code> gives a readable name to each task in the Nextflow logs.</p>
+<p>For example:</p>
+<pre class="text"><code>Salmon on gut
+Salmon on liver
+Salmon on lung</code></pre>
+<blockquote class="blockquote">
+<p><strong>Key point:</strong> <code>tag</code> = <strong>how can I identify the task in the logs?</strong></p>
+</blockquote>
+<hr>
+</section>
+<section id="publishdir-with-mode-copy" class="level1">
+<h1>7. publishDir with mode: ‘copy’</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb13-1">publishDir <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$params</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">outdir</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/salmon"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> mode<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'copy'</span></span></code></pre></div></div>
+<p><code>mode: 'copy'</code> tells Nextflow to make a <strong>real copy</strong> of the output.</p>
+<p>Without <code>mode: 'copy'</code>, published files may be symbolic links to files inside <code>work/</code>.</p>
+<p>With:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb14-1">mode<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'copy'</span></span></code></pre></div></div>
+<p>the published result is independent of the <code>work/</code> directory.</p>
+<blockquote class="blockquote">
+<p><strong>Key point:</strong> <code>mode: 'copy'</code> = <strong>make a real copy of the result</strong></p>
+</blockquote>
+<hr>
+</section>
+<section id="quantification-process" class="level1">
+<h1>8. QUANTIFICATION process</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb15-1">process QUANTIFICATION <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb15-2"></span>
+<span id="cb15-3">    container <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'oras://community.wave.seqera.io/library/salmon:2.7.0--cb05356ce9eb88b7'</span></span>
+<span id="cb15-4"></span>
+<span id="cb15-5">    tag <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Salmon on </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$sample_id</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
+<span id="cb15-6"></span>
+<span id="cb15-7">    publishDir <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$params</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">outdir</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/salmon"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> mode<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'copy'</span></span>
+<span id="cb15-8"></span>
+<span id="cb15-9">    input<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb15-10">    path salmon_index</span>
+<span id="cb15-11">    tuple <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">val</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>sample_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">),</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>reads<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb15-12"></span>
+<span id="cb15-13">    output<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb15-14">    path <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$sample_id</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
+<span id="cb15-15"></span>
+<span id="cb15-16">    script<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb15-17">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"""</span></span>
+<span id="cb15-18"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    salmon quant --threads </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$task</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">cpus</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb15-19"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        --libType=U </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb15-20"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        -i </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$salmon_index</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb15-21"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        -1 </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">${</span>reads<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb15-22"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        -2 </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">${</span>reads<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb15-23"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        -o </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$sample_id</span></span>
+<span id="cb15-24"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    """</span></span>
+<span id="cb15-25"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<section id="inputs" class="level3">
+<h3 class="anchored" data-anchor-id="inputs">Inputs</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb16-1">path salmon_index</span></code></pre></div></div>
+<p>→ Salmon index produced by <code>INDEX</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb17-1">tuple <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">val</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>sample_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">),</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>reads<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<p>→ sample ID + paired-end reads.</p>
+<p>Example:</p>
+<pre class="text"><code>gut → gut_1.fq + gut_2.fq</code></pre>
+</section>
+<section id="output" class="level3">
+<h3 class="anchored" data-anchor-id="output">Output</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb19-1">path <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$sample_id</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span></code></pre></div></div>
+<p>→ results directory for each sample.</p>
+<hr>
+</section>
+</section>
+<section id="fastqc-process" class="level1">
+<h1>9. FASTQC process</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb20-1">process FASTQC <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb20-2"></span>
+<span id="cb20-3">    tag <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"FASTQC on </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">$sample_id</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
+<span id="cb20-4"></span>
+<span id="cb20-5">    input<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb20-6">    tuple <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">val</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>sample_id<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">),</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>reads<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb20-7"></span>
+<span id="cb20-8">    output<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb20-9">    path <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fastqc_</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">${</span>sample_id<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">_logs"</span></span>
+<span id="cb20-10"></span>
+<span id="cb20-11">    script<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb20-12">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"""</span></span>
+<span id="cb20-13"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    mkdir fastqc_</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">${</span>sample_id<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">_logs</span></span>
+<span id="cb20-14"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    fastqc -o fastqc_</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">${</span>sample_id<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">_logs </span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb20-15"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        -f fastq -q </span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">${</span>reads<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb20-16"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    """</span></span>
+<span id="cb20-17"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<p><code>FASTQC</code> uses the same reads as <code>QUANTIFICATION</code>.</p>
+<p>Therefore, both processes can run <strong>in parallel</strong>.</p>
+<hr>
+</section>
+<section id="pairing-the-reads" class="level1">
+<h1>10. Pairing the reads</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb21-1">channel</span>
+<span id="cb21-2">    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">fromFilePairs</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>params<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>reads<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> checkIfExists<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">true</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb21-3">    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">set</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span> read_pairs_ch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<p>For:</p>
+<pre class="text"><code>gut_1.fq
+gut_2.fq
+liver_1.fq
+liver_2.fq</code></pre>
+<p>Nextflow creates:</p>
+<pre class="text"><code>[gut,   [gut_1.fq, gut_2.fq]]
+[liver, [liver_1.fq, liver_2.fq]]</code></pre>
+<ul>
+<li><code>gut</code> → <code>sample_id</code></li>
+<li><code>[gut_1.fq, gut_2.fq]</code> → paired-end reads</li>
+</ul>
+<hr>
+</section>
+<section id="main-workflow" class="level1">
+<h1>11. Main workflow</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode groovy code-with-copy"><code class="sourceCode groovy"><span id="cb24-1">workflow <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb24-2"></span>
+<span id="cb24-3">    channel</span>
+<span id="cb24-4">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">fromFilePairs</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>params<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>reads<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> checkIfExists<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">true</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb24-5">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">set</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span> read_pairs_ch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb24-6"></span>
+<span id="cb24-7">    index_ch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">INDEX</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>params<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>transcriptome_file<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb24-8"></span>
+<span id="cb24-9">    quant_ch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">QUANTIFICATION</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span id="cb24-10">        index_ch<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb24-11">        read_pairs_ch</span>
+<span id="cb24-12">    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb24-13"></span>
+<span id="cb24-14">    fastqc_ch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">FASTQC</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>read_pairs_ch<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb24-15"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<section id="process-connections" class="level3">
+<h3 class="anchored" data-anchor-id="process-connections">Process connections</h3>
+<pre class="text"><code>transcriptome
+      │
+      ▼
+    INDEX
+      │
+      ▼
+salmon_index
+      │
+      ▼
+QUANTIFICATION
+      ▲
+      │
+paired-end reads
+      │
+      └──────────────► FASTQC</code></pre>
+<hr>
+</section>
+</section>
+<section id="important-nextflow-keywords" class="level1">
+<h1>12. Important Nextflow keywords</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Keyword</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>process</code></td>
+<td>Defines a task</td>
+</tr>
+<tr class="even">
+<td><code>input</code></td>
+<td>Input data</td>
+</tr>
+<tr class="odd">
+<td><code>output</code></td>
+<td>Produced results</td>
+</tr>
+<tr class="even">
+<td><code>script</code></td>
+<td>Command to execute</td>
+</tr>
+<tr class="odd">
+<td><code>container</code></td>
+<td>Software environment</td>
+</tr>
+<tr class="even">
+<td><code>tag</code></td>
+<td>Task identification in logs</td>
+</tr>
+<tr class="odd">
+<td><code>publishDir</code></td>
+<td>Where to publish results</td>
+</tr>
+<tr class="even">
+<td><code>mode: 'copy'</code></td>
+<td>Make a real copy</td>
+</tr>
+<tr class="odd">
+<td><code>channel</code></td>
+<td>Transfers data between processes</td>
+</tr>
+<tr class="even">
+<td><code>fromFilePairs()</code></td>
+<td>Groups paired-end reads</td>
+</tr>
+<tr class="odd">
+<td><code>tuple</code></td>
+<td>Groups multiple values together</td>
+</tr>
+<tr class="even">
+<td><code>params</code></td>
+<td>Workflow parameters</td>
+</tr>
+<tr class="odd">
+<td><code>$task.cpus</code></td>
+<td>CPUs allocated to the task</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
 
  ]]></description>
-  <category>news</category>
-  <guid>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/welcome/</guid>
-  <pubDate>Thu, 10 Sep 2026 22:00:00 GMT</pubDate>
+  <category>workflow</category>
+  <category>reproducibility</category>
+  <category>RNAseq</category>
+  <guid>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nextflow_rnaseq/</guid>
+  <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nextflow_rnaseq/rnaseq.webp" medium="image" type="image/webp"/>
+</item>
+<item>
+  <title>Nextflow basic</title>
+  <dc:creator>Ndeye Awa Ndiaye</dc:creator>
+  <link>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nextflow/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>An introduction to Nextflow and workflow managers, focusing on how they automate bioinformatics pipelines and improve reproducibility, portability, scalability, and resource management.</p>
+<section id="nextflow---key-points" class="level3">
+<h3 class="anchored" data-anchor-id="nextflow---key-points">Nextflow - Key Points</h3>
+<ul>
+<li><p><strong>Processes</strong> represent individual steps of a pipeline, while <strong>channels</strong> transfer data between processes.</p></li>
+<li><p><strong>Modularity:</strong> processes can be reused and combined into different workflows.</p></li>
+<li><p><strong>Portability:</strong> the same pipeline can run locally, on <strong>HPC clusters</strong>, or in the <strong>cloud</strong>, with environment-specific settings separated from the workflow logic.</p></li>
+<li><p><strong>Reproducibility:</strong> Nextflow integrates well with <strong>Git, Docker, Apptainer, and Conda</strong>.</p></li>
+<li><p><strong>Scalability:</strong> pipelines can process a few samples or thousands of samples, with independent processes running in parallel when possible.</p></li>
+<li><p><strong>Resume:</strong> Nextflow can resume a failed pipeline without recomputing successfully completed processes.</p></li>
+<li><p><strong>Automation:</strong> instead of running each analysis step manually, one command can execute and coordinate the entire pipeline.</p></li>
+</ul>
+</section>
+<section id="understanding-nextflow-processes-and-channels" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-nextflow-processes-and-channels">Understanding Nextflow Processes and Channels</h2>
+<p>For more detailed training, the official <strong>Nextflow training</strong> is available here: <a href="https://training.nextflow.io/latest/">training.nextflow.io</a>.</p>
+<section id="process-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="process-blocks">Process blocks</h3>
+<p>In Nextflow, a <strong>process</strong> represents one step of a pipeline. It can run a command, a script, or a bioinformatics tool.</p>
+<p>A process generally contains four main parts:</p>
+<pre class="nextflow"><code>process PROCESS_NAME {
+
+    // directives
+    container 'my_container'
+
+    input:
+    data z
+    data y
+    data x
+
+    output:
+    path x
+    path y
+    path z
+
+    script:
+    task1
+    task2
+    task3
+
+}</code></pre>
+<ul>
+<li><strong><code>input:</code></strong> defines the data that the process needs.</li>
+<li><strong>Directives</strong> specify how the process should be executed, for example which container, CPU, memory, or execution environment to use.</li>
+<li><strong><code>script:</code></strong> contains the commands that will actually be executed.</li>
+<li><strong><code>output:</code></strong> defines the files or data produced by the process.</li>
+</ul>
+<p>The important idea is that a process focuses on <strong>one specific task</strong>, while Nextflow takes care of connecting the different processes together.</p>
+</section>
+<section id="channels" class="level3">
+<h3 class="anchored" data-anchor-id="channels">Channels</h3>
+<p><strong>Channels</strong> are used to transfer data between processes.</p>
+<p>For example, the output of one process can be sent through a channel and become the input of another process:</p>
+<pre class="text"><code>Process A
+    │
+    ▼
+ Channel
+    │
+    ▼
+Process B</code></pre>
+<p>This allows the different steps of a pipeline to communicate without having to manually manage the transfer of files between them.</p>
+<p>Nextflow has two main types of channels:</p>
+</section>
+<section id="queue-channels" class="level3">
+<h3 class="anchored" data-anchor-id="queue-channels">1. Queue channels</h3>
+<p>A <strong>queue channel</strong> behaves like a queue of data.</p>
+<p>Each item is consumed when a process reads it. Once an item has been consumed, it cannot normally be read again from the same queue channel.</p>
+<p>For example, imagine a channel containing three samples:</p>
+<pre class="text"><code>Channel
+ ├── sample1
+ ├── sample2
+ └── sample3</code></pre>
+<p>A process can consume these samples one by one:</p>
+<pre class="text"><code>sample1 → Process
+sample2 → Process
+sample3 → Process</code></pre>
+<p>This is particularly useful when processing many samples in a workflow.</p>
+<p>Queue channels are therefore useful when data should <strong>flow through the pipeline and be consumed by downstream processes</strong>.</p>
+</section>
+<section id="value-channels" class="level3">
+<h3 class="anchored" data-anchor-id="value-channels">2. Value channels</h3>
+<p>A <strong>value channel</strong> contains a single value that can be read <strong>multiple times without being consumed</strong>.</p>
+<p>For example:</p>
+<pre class="text"><code>Value channel
+      │
+      ├──→ Process A
+      ├──→ Process B
+      └──→ Process C</code></pre>
+<p>All three processes can access the same value.</p>
+<p>This is useful when the same information needs to be reused by several processes, such as a reference genome, a parameter, or a configuration value.</p>
+</section>
+<section id="queue-vs-value-channels" class="level3">
+<h3 class="anchored" data-anchor-id="queue-vs-value-channels">Queue vs Value channels</h3>
+<p>The main difference is therefore how the data is consumed:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 35%">
+<col style="width: 39%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Channel type</th>
+<th>Content</th>
+<th>Can be read multiple times?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Queue channel</strong></td>
+<td>A stream/queue of values</td>
+<td>❌ Normally consumed once</td>
+</tr>
+<tr class="even">
+<td><strong>Value channel</strong></td>
+<td>A single value</td>
+<td>✅ Yes, unlimited times</td>
+</tr>
+</tbody>
+</table>
+<p>Understanding the difference is important when designing more complex Nextflow workflows, especially when the same data needs to be used by several processes.</p>
+<p>For more details, see the official Nextflow documentation on <a href="https://www.nextflow.io/docs/latest/channel.html#channel-types">channel types</a>.</p>
+<p>Execution Abstraction Process → defines what should be executed.</p>
+<p>Executor → defines where and how it is executed (local, HPC, cloud).</p>
+<p>This separation makes Nextflow workflows portable across different computing environments.</p>
+<p>Nextflow uses a Groovy-based DSL, but processes can run scripts written in Bash, Python, R, Perl, Ruby, etc.</p>
+<p>First Nextflow script — l’essentiel</p>
+</section>
+<section id="setup-the-environment" class="level3">
+<h3 class="anchored" data-anchor-id="setup-the-environment">Setup the environment</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">screen</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-S</span> nextflow</span>
+<span id="cb6-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> init <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> bioconda <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> conda-forge</span>
+<span id="cb6-3"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> add nextflow </span></code></pre></div></div>
+</section>
+<section id="hello.nf-structure" class="level3">
+<h3 class="anchored" data-anchor-id="hello.nf-structure">hello.nf structure</h3>
+<ul>
+<li><strong><code>params</code></strong> → input parameters</li>
+<li><strong><code>process</code></strong> → processing steps</li>
+<li><strong><code>input</code> / <code>output</code></strong> → data entering/leaving a process</li>
+<li><strong><code>script</code></strong> → commands to execute</li>
+<li><strong><code>workflow</code></strong> → connects processes and channels</li>
+<li><strong><code>Channel.of()</code></strong> → creates a channel</li>
+<li><strong><code>.flatten()</code></strong> → splits elements for individual processing</li>
+<li><strong><code>.view()</code></strong> → displays channel contents</li>
+</ul>
+<p><strong>Key idea:</strong> Processes do the work, channels transport data, and workflows connect the steps.</p>
+</section>
+<section id="run" class="level3">
+<h3 class="anchored" data-anchor-id="run">Run</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run nextflow run hello.nf</span></code></pre></div></div>
+</section>
+<section id="output" class="level3">
+<h3 class="anchored" data-anchor-id="output">Output</h3>
+<ul>
+<li><code>executor &gt; local</code> → runs locally</li>
+<li><code>SPLITLETTERS (1)</code> → 1 task</li>
+<li><code>CONVERTTOUPPER (2)</code> → 2 tasks, potentially in parallel</li>
+<li><code>96/fd5f07</code> → task ID / directory in <code>work/</code></li>
+<li><code>HELLO</code>, <code>WORLD!</code> → final output</li>
+</ul>
+<p><strong>Important:</strong> Parallel tasks do not guarantee output order.</p>
+</section>
+<section id="resume" class="level3">
+<h3 class="anchored" data-anchor-id="resume">-resume</h3>
+<p>Nextflow <strong>caches process results</strong> and re-runs only the processes that changed.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run nextflow run hello.nf <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-resume</span></span></code></pre></div></div>
+<p><strong>Key point:</strong> unchanged processes are skipped and their cached results are reused.</p>
+</section>
+<section id="workflow-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-parameters">Workflow parameters</h3>
+<p>Define parameters with <code>params.name</code> and override them from the command line with <code>--name</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run nextflow run hello.nf <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-resume</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--greeting</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Bonjour le monde!'</span></span></code></pre></div></div>
+</section>
+<section id="configuration-priority" class="level3">
+<h3 class="anchored" data-anchor-id="configuration-priority">Configuration priority</h3>
+<p>From <strong>highest to lowest priority</strong>:</p>
+<ol type="1">
+<li>Command-line parameters</li>
+<li><code>-params-file</code></li>
+<li><code>-c</code> configuration file</li>
+<li><code>nextflow.config</code> in current directory</li>
+<li>Project <code>nextflow.config</code></li>
+<li><code>$HOME/.nextflow/config</code></li>
+<li>Parameters defined in the script</li>
+</ol>
+</section>
+<section id="clean-up" class="level3">
+<h3 class="anchored" data-anchor-id="clean-up">Clean up</h3>
+<p>View previous runs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run nextflow log</span></code></pre></div></div>
+<p>Clean the cache and <code>work/</code> directories:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run nextflow clean <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-f</span></span></code></pre></div></div>
+<p>Specify the run name and option as explained <a href="https://docs.seqera.io/nextflow/reference/cli#clean">Here</a>.</p>
+<p>Clean runs before a specific run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run nextflow clean <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-before</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>RUN_NAME<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> -f</span></code></pre></div></div>
+<p><strong>Key point:</strong> Nextflow stores cached results in <code>work/</code>; clean it periodically when the cache is no longer needed.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>workflow</category>
+  <category>reproducibility</category>
+  <category>bioinformatics</category>
+  <guid>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nextflow/</guid>
+  <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/nextflow/nextflow.png" medium="image" type="image/png" height="75" width="144"/>
+</item>
+<item>
+  <title>Introduction to Pixi</title>
+  <dc:creator>Ndeye Awa Ndiaye</dc:creator>
+  <link>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/pixi/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Pixi is a fast, modern, and reproducible package management tool for developers of all backgrounds.</p>
+<section id="why-pixi" class="level1">
+<h1>Why Pixi?</h1>
+<p>🔄 Reproducible Environments Create isolated environments that can be recreated consistently using lock files.</p>
+<p>📦 Dependency Management Manage project dependencies and software versions in a single configuration.</p>
+<p>🛠️ Task Management Define and run project tasks directly from the Pixi environment.</p>
+<p>🌐 Cross-Platform Use the same project environment across Linux, macOS, and Windows.</p>
+<p>🧩 Multiple Environments Define different environments for different use cases within the same project.</p>
+<p>🐍 Python Support Manage Python packages and dependencies, including packages from PyPI.</p>
+<p>💾 Efficient Storage Pixi can avoid unnecessary duplication of packages between environments.</p>
+<p>🌍 Global Tools Install command-line tools in isolated environments without modifying the system environment.</p>
+</section>
+<section id="installation" class="level1">
+<h1>Installation</h1>
+<p>Install Pixi using the official installation script:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">wget</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-qO-</span> https://pixi.sh/install.sh <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">|</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sh</span></span></code></pre></div></div>
+<p>After installation, restart your terminal or reload your shell configuration so that pixi is available in your PATH.</p>
+<section id="for-example" class="level4">
+<h4 class="anchored" data-anchor-id="for-example">For example:</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">source</span> ~/.bashrc</span></code></pre></div></div>
+<p>or, for Zsh:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">source</span> ~/.zshrc</span></code></pre></div></div>
+<p>Then verify the installation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"> <span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--version</span></span></code></pre></div></div>
+<p>More information about pixi intallation are available https://pixi.prefix.dev/latest/installation/</p>
+</section>
+</section>
+<section id="creating-a-pixi-environment" class="level1">
+<h1>Creating a Pixi Environment</h1>
+<p>To create a new Pixi environment, use <code>pixi init</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> init name_pixi_training <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> conda-forge <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> bioconda</span></code></pre></div></div>
+<p>Pixi will create a folder named <code>name_pixi_training</code> containing a <code>pixi.toml</code> file.</p>
+<p>The <code>pixi.toml</code> file contains the main information about your project and its environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb6-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[workspace]</span></span>
+<span id="cb6-2"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">channels</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"conda-forge"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bioconda"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb6-3"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"amrei_pixi_training"</span></span>
+<span id="cb6-4"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">platforms</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"linux-64"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb6-5"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">version</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.1.0"</span></span>
+<span id="cb6-6"></span>
+<span id="cb6-7"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[tasks]</span></span>
+<span id="cb6-8"></span>
+<span id="cb6-9"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[dependencies]</span></span></code></pre></div></div>
+<section id="understanding-the-pixi.toml-file" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-pixi.toml-file">Understanding the pixi.toml file</h3>
+<p><strong>1. Workspace</strong> The <code>[workspace]</code> section contains the main configuration of the environment.</p>
+<p><strong>2. Channels</strong> These are the sources from which Pixi can obtain packages and tools.</p>
+<p><strong>3. Project name</strong> The name assigned to the Pixi project.</p>
+<p><strong>4. Platforms</strong> The operating system and architecture for which the environment is configured.</p>
+<p><strong>5. Tasks</strong> This section can be used to define commands that can be executed with Pixi. This is not covered in detail in this course.</p>
+<p><strong>6. Dependencies</strong> This is where the software and packages installed in the environment are listed.</p>
+</section>
+<section id="the-pixi.lock-file" class="level3">
+<h3 class="anchored" data-anchor-id="the-pixi.lock-file">The pixi.lock file</h3>
+<p>Pixi also creates a <code>pixi.lock</code> file. This file records the exact packages and versions used by the environment, together with information such as channels, package sources, licenses, and checksums.</p>
+<blockquote class="blockquote">
+<p><strong>Important:</strong> Do not delete the <code>pixi.toml</code> or <code>pixi.lock</code> files. They are essential for reproducing the environment.</p>
+</blockquote>
+</section>
+<section id="adding-software-to-the-environment" class="level2">
+<h2 class="anchored" data-anchor-id="adding-software-to-the-environment">Adding Software to the Environment</h2>
+<p>Adding a dependency to the project tells Pixi to install that software.</p>
+<p>Use:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> add <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>package<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span></span></code></pre></div></div>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> add quarto</span></code></pre></div></div>
+<p>You should run <code>pixi add</code> from inside the Pixi project directory.</p>
+</section>
+<section id="running-software-with-pixi" class="level2">
+<h2 class="anchored" data-anchor-id="running-software-with-pixi">Running Software with Pixi</h2>
+<p>Once a tool has been installed in the Pixi environment, you can run it using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> run quarto <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--help</span></span></code></pre></div></div>
+<p>This works even if <code>quarto</code> is not installed globally on your system.</p>
+<p>In contrast:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--help</span></span></code></pre></div></div>
+<p>may not work because Quarto is installed only inside the Pixi environment.</p>
+</section>
+<section id="entering-the-environment" class="level2">
+<h2 class="anchored" data-anchor-id="entering-the-environment">Entering the Environment</h2>
+<p>Alternatively, you can enter the environment with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pixi</span> shell</span></code></pre></div></div>
+<p>Once inside the environment, you can use the installed tools directly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--help</span></span></code></pre></div></div>
+<p>This is somewhat similar to activating a Conda environment.</p>
+<p>To leave the environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">exit</span></span></code></pre></div></div>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> <code>pixi shell</code> may not be available or may behave differently on some HPC systems. For example, it does not work as expected on HPC2N. In such cases, <code>pixi run</code> can be used instead.</p>
+</blockquote>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>environments</category>
+  <category>reproducibility</category>
+  <guid>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/pixi/</guid>
+  <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/pixi/pixi_image.webp" medium="image" type="image/webp"/>
+</item>
+<item>
+  <title>Quality Control</title>
+  <dc:creator>Ndeye Awa Ndiaye</dc:creator>
+  <link>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/quality-control/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Quality control of sequencing data screen, slurm, pixi, FastQC, MultiQC</p>
+<section id="quality-control-of-sequencing-data" class="level2">
+<h2 class="anchored" data-anchor-id="quality-control-of-sequencing-data">Quality Control of Sequencing Data</h2>
+<p>Quality control (QC) is essential before downstream analysis because poor-quality sequencing data can affect the reliability of the results. <strong>FastQC</strong> is used to assess the quality of raw sequencing reads, while <strong>MultiQC</strong> summarizes results from multiple samples.</p>
+<section id="main-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="main-concepts">🔬 Main concepts</h3>
+<ul>
+<li><strong>FASTQ</strong> → common format for raw sequencing reads; each read contains the sequence and its quality scores.</li>
+<li><strong>FastQC</strong> → checks sequencing quality and provides an HTML report with different QC metrics.</li>
+<li><strong>Pixi</strong> → creates a reproducible environment and installs FastQC.</li>
+<li><strong>SLURM</strong> → manages computational resources and jobs on the HPC cluster.</li>
+<li><strong><code>srun</code></strong> → runs a command interactively on allocated HPC resources.</li>
+<li><strong><code>sbatch</code></strong> → submits a script as a batch job, which is useful for running analyses on multiple samples or repeating them later.</li>
+<li><strong>MultiQC</strong> → combines QC results from multiple FastQC reports into a single summary report.</li>
+</ul>
+</section>
+<section id="typical-qc-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="typical-qc-workflow">🧪 Typical QC workflow</h3>
+<pre class="text"><code>Raw FASTQ
+    ↓
+FastQC
+    ↓
+Individual QC reports
+    ↓
+MultiQC
+    ↓
+Combined QC report
+    ↓
+Assess data quality</code></pre>
+</section>
+<section id="screen-gnu-screen" class="level3">
+<h3 class="anchored" data-anchor-id="screen-gnu-screen">Screen / GNU Screen</h3>
+<p><strong>Screen</strong> (GNU Screen) is a terminal multiplexer. It allows you to start a persistent terminal session and run processes inside it. Processes continue running even when the session is detached or the connection is interrupted.</p>
+<section id="start-a-named-session" class="level4">
+<h4 class="anchored" data-anchor-id="start-a-named-session">Start a named session</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">screen</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-S</span> fastqc</span></code></pre></div></div>
+</section>
+<section id="detach-from-the-session" class="level4">
+<h4 class="anchored" data-anchor-id="detach-from-the-session">Detach from the session</h4>
+<p>Press:</p>
+<pre class="text"><code>Ctrl + a, then d</code></pre>
+<p>The processes inside the session will continue running.</p>
+</section>
+<section id="list-running-screen-sessions" class="level4">
+<h4 class="anchored" data-anchor-id="list-running-screen-sessions">List running Screen sessions</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">screen</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-ls</span></span></code></pre></div></div>
+</section>
+<section id="reattach-to-a-session" class="level4">
+<h4 class="anchored" data-anchor-id="reattach-to-a-session">Reattach to a session</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">screen</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-r</span> fastqc</span></code></pre></div></div>
+</section>
+</section>
+<section id="creating-symbolic-links" class="level3">
+<h3 class="anchored" data-anchor-id="creating-symbolic-links">Creating Symbolic Links</h3>
+<p>The command below creates symbolic links to the original FASTQ files: ln -s path/to/common_data/wgs/*fastq.gz .</p>
+</section>
+<section id="why-use-symbolic-links" class="level3">
+<h3 class="anchored" data-anchor-id="why-use-symbolic-links">Why use symbolic links?</h3>
+<p>Avoid duplicating large sequencing files. Keep the original raw data unchanged. Make files easily accessible from your analysis directory. Save storage space.</p>
+</section>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">💻 Example</h3>
+<p>Run FastQC on HPC:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">srun</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-A</span> project_ID <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-t</span> 15:00 <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-n</span> 1 <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb6-2">  pixi run fastqc <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--noextract</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-o</span> fastqc data/<span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">*</span>fastq.gz</span></code></pre></div></div>
+<p>For a reproducible batch analysis:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">sbatch</span> fastqc.sh</span></code></pre></div></div>
+</section>
+<section id="key-takeaway" class="level3">
+<h3 class="anchored" data-anchor-id="key-takeaway">🔑 Key takeaway</h3>
+<p><strong>Pixi</strong> manages the software environment → <strong>SLURM</strong> manages HPC resources → <strong>FastQC</strong> checks individual sequencing files → <strong>MultiQC</strong> summarizes the results.</p>
+<p>Before proceeding with downstream analysis, always <strong>inspect the QC results and determine whether the data quality is suitable for the planned analysis</strong>.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>quality-control</category>
+  <category>sequencing</category>
+  <category>reproducibility</category>
+  <guid>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/quality-control/</guid>
+  <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/quality-control/sequencing.webp.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Containers</title>
+  <dc:creator>Ndeye Awa Ndiaye</dc:creator>
+  <link>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/containers/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="containers" class="level1">
+<h1>Containers</h1>
+<section id="why-containers" class="level2">
+<h2 class="anchored" data-anchor-id="why-containers">Why containers?</h2>
+<p>Containers make bioinformatics analyses more <strong>reproducible</strong> by packaging software together with its dependencies and environment.</p>
+<p>They help avoid problems caused by:</p>
+<ul>
+<li>Different operating systems or software versions</li>
+<li>Conflicting dependencies</li>
+<li>Outdated bioinformatics tools</li>
+<li>Needing different versions of the same software</li>
+</ul>
+<p>A container image is <strong>portable and immutable</strong>, making it easier to run the same software environment on different systems.</p>
+</section>
+<section id="apptainer" class="level2">
+<h2 class="anchored" data-anchor-id="apptainer">Apptainer</h2>
+<p>Several tools can be used to run containers, including Docker, Apptainer, and Podman.</p>
+<p>For <strong>HPC and multi-user servers</strong>, we commonly use <strong>Apptainer</strong>.</p>
+</section>
+<section id="downloading-container-images" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-container-images">Downloading container images</h2>
+<p>Container images can be downloaded from registries such as <strong>Docker Hub</strong> or <strong>Seqera/Wave</strong>.</p>
+<p>For example, from Docker Hub:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> pull vcftools.sif docker://biocontainers/vcftools:v0.1.16-1-deb_cv1</span></code></pre></div></div>
+<p>From Seqera:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> pull vcftools.sif oras://community.wave.seqera.io/library/vcftools:0.1.17--b541aa8d9f9213f9</span></code></pre></div></div>
+<p>The <code>.sif</code> file is the local Apptainer container image.</p>
+</section>
+<section id="running-containers" class="level2">
+<h2 class="anchored" data-anchor-id="running-containers">Running containers</h2>
+<section id="exec" class="level3">
+<h3 class="anchored" data-anchor-id="exec"><code>exec</code></h3>
+<p><code>apptainer exec</code> runs a specific command inside the container:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> exec vcftools.sif vcftools <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--version</span></span></code></pre></div></div>
+<p>This is particularly useful in bioinformatics because we usually want to run a specific tool inside the container.</p>
+</section>
+<section id="run" class="level3">
+<h3 class="anchored" data-anchor-id="run"><code>run</code></h3>
+<p><code>apptainer run</code> executes the container’s predefined <code>%runscript</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> run container.sif</span></code></pre></div></div>
+</section>
+<section id="shell" class="level3">
+<h3 class="anchored" data-anchor-id="shell"><code>shell</code></h3>
+<p><code>apptainer shell</code> opens an interactive shell inside the container:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> shell container.sif</span></code></pre></div></div>
+<p>You can then use the tools installed inside the container.</p>
+</section>
+</section>
+<section id="binding-directories" class="level2">
+<h2 class="anchored" data-anchor-id="binding-directories">Binding directories</h2>
+<p>By default, not all directories from the host system are accessible inside a container.</p>
+<p>The <code>-B</code> option allows you to <strong>bind</strong> a directory from the host into the container:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> exec <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-B</span> ../data:/rawdata container.sif ls /rawdata</span></code></pre></div></div>
+<p>Here, the host directory <code>../data</code> is accessible inside the container as <code>/rawdata</code>.</p>
+</section>
+<section id="containers-with-slurm" class="level2">
+<h2 class="anchored" data-anchor-id="containers-with-slurm">Containers with SLURM</h2>
+<p>Apptainer can be used directly inside a SLURM batch job:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#!/bin/bash -l</span></span>
+<span id="cb7-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -A project_ID</span></span>
+<span id="cb7-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -t 30:00</span></span>
+<span id="cb7-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH -n 1</span></span>
+<span id="cb7-5"></span>
+<span id="cb7-6"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> exec container_image.sif <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb7-7">    fastqc <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-o</span> . <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--noextract</span> ../data/<span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">*</span>fastq.gz</span></code></pre></div></div>
+<p>This combines <strong>SLURM resource management</strong> with a reproducible software environment.</p>
+</section>
+<section id="building-a-container" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-container">Building a container</h2>
+<p>If a suitable container image does not already exist, you can build your own using a <code>.def</code> definition file.</p>
+<p>The main sections are:</p>
+<ul>
+<li><code>Bootstrap</code> / <code>From</code> → choose the base image</li>
+<li><code>%post</code> → install software and dependencies</li>
+<li><code>%environment</code> → configure environment variables</li>
+<li><code>%runscript</code> → define the default action of the container</li>
+</ul>
+<p>For example:</p>
+<pre class="text"><code>Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+    apt-get -y update
+    apt-get -y install cowsay
+
+%environment
+    export LC_ALL=C
+
+%runscript
+    date | cowsay</code></pre>
+<p>Build the container with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> build mycontainer.sif mycontainer.def</span></code></pre></div></div>
+<p>Then run it with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">apptainer</span> run mycontainer.sif</span></code></pre></div></div>
+</section>
+<section id="run-vs-exec" class="level2">
+<h2 class="anchored" data-anchor-id="run-vs-exec"><code>run</code> vs <code>exec</code></h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>apptainer run</code></td>
+<td>Executes the container’s <code>%runscript</code></td>
+</tr>
+<tr class="even">
+<td><code>apptainer exec</code></td>
+<td>Runs a specific command inside the container</td>
+</tr>
+<tr class="odd">
+<td><code>apptainer shell</code></td>
+<td>Opens an interactive shell inside the container</td>
+</tr>
+</tbody>
+</table>
+<p><strong>In bioinformatics workflows, <code>exec</code> is often the most useful command because it allows us to explicitly run a particular tool and version inside the container.</strong></p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>reproducibility</category>
+  <category>containers</category>
+  <guid>https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/containers/</guid>
+  <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://ndeyeawandiaye.github.io/MedBioinfo_Project_week3/posts/containers/containers.webp" medium="image" type="image/webp"/>
 </item>
 </channel>
 </rss>

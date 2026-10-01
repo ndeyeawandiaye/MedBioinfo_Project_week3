@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
+<meta name="author" content="Ndeye Awa Ndiaye">
 <meta name="dcterms.date" content="2026-09-14">
 
-<title>Post With Code – MedBionfo_Project</title>
+<title>Containers – MedBionfo_Project</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -28,6 +28,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -44,10 +79,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-919142bd09e7049e1e90ddad4aec0c4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -122,11 +157,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Containers</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">reproducibility</div>
+                <div class="quarto-category">containers</div>
               </div>
                   </div>
   </div>
@@ -137,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Ndeye Awa Ndiaye </p>
             </div>
     </div>
       
@@ -163,9 +197,130 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<section id="containers" class="level1">
+<h1>Containers</h1>
+<section id="why-containers" class="level2">
+<h2 class="anchored" data-anchor-id="why-containers">Why containers?</h2>
+<p>Containers make bioinformatics analyses more <strong>reproducible</strong> by packaging software together with its dependencies and environment.</p>
+<p>They help avoid problems caused by:</p>
+<ul>
+<li>Different operating systems or software versions</li>
+<li>Conflicting dependencies</li>
+<li>Outdated bioinformatics tools</li>
+<li>Needing different versions of the same software</li>
+</ul>
+<p>A container image is <strong>portable and immutable</strong>, making it easier to run the same software environment on different systems.</p>
+</section>
+<section id="apptainer" class="level2">
+<h2 class="anchored" data-anchor-id="apptainer">Apptainer</h2>
+<p>Several tools can be used to run containers, including Docker, Apptainer, and Podman.</p>
+<p>For <strong>HPC and multi-user servers</strong>, we commonly use <strong>Apptainer</strong>.</p>
+</section>
+<section id="downloading-container-images" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-container-images">Downloading container images</h2>
+<p>Container images can be downloaded from registries such as <strong>Docker Hub</strong> or <strong>Seqera/Wave</strong>.</p>
+<p>For example, from Docker Hub:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull vcftools.sif docker://biocontainers/vcftools:v0.1.16-1-deb_cv1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>From Seqera:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull vcftools.sif oras://community.wave.seqera.io/library/vcftools:0.1.17--b541aa8d9f9213f9</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>.sif</code> file is the local Apptainer container image.</p>
+</section>
+<section id="running-containers" class="level2">
+<h2 class="anchored" data-anchor-id="running-containers">Running containers</h2>
+<section id="exec" class="level3">
+<h3 class="anchored" data-anchor-id="exec"><code>exec</code></h3>
+<p><code>apptainer exec</code> runs a specific command inside the container:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec vcftools.sif vcftools <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is particularly useful in bioinformatics because we usually want to run a specific tool inside the container.</p>
+</section>
+<section id="run" class="level3">
+<h3 class="anchored" data-anchor-id="run"><code>run</code></h3>
+<p><code>apptainer run</code> executes the container’s predefined <code>%runscript</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run container.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="shell" class="level3">
+<h3 class="anchored" data-anchor-id="shell"><code>shell</code></h3>
+<p><code>apptainer shell</code> opens an interactive shell inside the container:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> shell container.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can then use the tools installed inside the container.</p>
+</section>
+</section>
+<section id="binding-directories" class="level2">
+<h2 class="anchored" data-anchor-id="binding-directories">Binding directories</h2>
+<p>By default, not all directories from the host system are accessible inside a container.</p>
+<p>The <code>-B</code> option allows you to <strong>bind</strong> a directory from the host into the container:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="at">-B</span> ../data:/rawdata container.sif ls /rawdata</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here, the host directory <code>../data</code> is accessible inside the container as <code>/rawdata</code>.</p>
+</section>
+<section id="containers-with-slurm" class="level2">
+<h2 class="anchored" data-anchor-id="containers-with-slurm">Containers with SLURM</h2>
+<p>Apptainer can be used directly inside a SLURM batch job:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash -l</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -A project_ID</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -t 30:00</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -n 1</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec container_image.sif <span class="dt">\</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    fastqc <span class="at">-o</span> . <span class="at">--noextract</span> ../data/<span class="pp">*</span>fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This combines <strong>SLURM resource management</strong> with a reproducible software environment.</p>
+</section>
+<section id="building-a-container" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-container">Building a container</h2>
+<p>If a suitable container image does not already exist, you can build your own using a <code>.def</code> definition file.</p>
+<p>The main sections are:</p>
+<ul>
+<li><code>Bootstrap</code> / <code>From</code> → choose the base image</li>
+<li><code>%post</code> → install software and dependencies</li>
+<li><code>%environment</code> → configure environment variables</li>
+<li><code>%runscript</code> → define the default action of the container</li>
+</ul>
+<p>For example:</p>
+<pre class="text"><code>Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+    apt-get -y update
+    apt-get -y install cowsay
+
+%environment
+    export LC_ALL=C
+
+%runscript
+    date | cowsay</code></pre>
+<p>Build the container with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> build mycontainer.sif mycontainer.def</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then run it with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> run mycontainer.sif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="run-vs-exec" class="level2">
+<h2 class="anchored" data-anchor-id="run-vs-exec"><code>run</code> vs <code>exec</code></h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>apptainer run</code></td>
+<td>Executes the container’s <code>%runscript</code></td>
+</tr>
+<tr class="even">
+<td><code>apptainer exec</code></td>
+<td>Runs a specific command inside the container</td>
+</tr>
+<tr class="odd">
+<td><code>apptainer shell</code></td>
+<td>Opens an interactive shell inside the container</td>
+</tr>
+</tbody>
+</table>
+<p><strong>In bioinformatics workflows, <code>exec</code> is often the most useful command because it allows us to explicitly run a particular tool and version inside the container.</strong></p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

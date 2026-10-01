@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
-<meta name="dcterms.date" content="2026-09-14">
+<meta name="author" content="Ndeye Awa Ndiaye">
+<meta name="dcterms.date" content="2026-09-16">
 
-<title>Post With Code – MedBionfo_Project</title>
+<title>Nextflow basic – MedBionfo_Project</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -28,6 +28,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -44,10 +79,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-c93ec5bda4936d5d96f5dd473ece1872.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -122,11 +157,11 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Nextflow basic</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">workflow</div>
+                <div class="quarto-category">reproducibility</div>
+                <div class="quarto-category">bioinformatics</div>
               </div>
                   </div>
   </div>
@@ -137,14 +172,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Ndeye Awa Ndiaye </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 14, 2026</p>
+        <p class="date">September 16, 2026</p>
       </div>
     </div>
     
@@ -163,9 +198,207 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<p>An introduction to Nextflow and workflow managers, focusing on how they automate bioinformatics pipelines and improve reproducibility, portability, scalability, and resource management.</p>
+<section id="nextflow---key-points" class="level3">
+<h3 class="anchored" data-anchor-id="nextflow---key-points">Nextflow - Key Points</h3>
+<ul>
+<li><p><strong>Processes</strong> represent individual steps of a pipeline, while <strong>channels</strong> transfer data between processes.</p></li>
+<li><p><strong>Modularity:</strong> processes can be reused and combined into different workflows.</p></li>
+<li><p><strong>Portability:</strong> the same pipeline can run locally, on <strong>HPC clusters</strong>, or in the <strong>cloud</strong>, with environment-specific settings separated from the workflow logic.</p></li>
+<li><p><strong>Reproducibility:</strong> Nextflow integrates well with <strong>Git, Docker, Apptainer, and Conda</strong>.</p></li>
+<li><p><strong>Scalability:</strong> pipelines can process a few samples or thousands of samples, with independent processes running in parallel when possible.</p></li>
+<li><p><strong>Resume:</strong> Nextflow can resume a failed pipeline without recomputing successfully completed processes.</p></li>
+<li><p><strong>Automation:</strong> instead of running each analysis step manually, one command can execute and coordinate the entire pipeline.</p></li>
+</ul>
+</section>
+<section id="understanding-nextflow-processes-and-channels" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-nextflow-processes-and-channels">Understanding Nextflow Processes and Channels</h2>
+<p>For more detailed training, the official <strong>Nextflow training</strong> is available here: <a href="https://training.nextflow.io/latest/">training.nextflow.io</a>.</p>
+<section id="process-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="process-blocks">Process blocks</h3>
+<p>In Nextflow, a <strong>process</strong> represents one step of a pipeline. It can run a command, a script, or a bioinformatics tool.</p>
+<p>A process generally contains four main parts:</p>
+<pre class="nextflow"><code>process PROCESS_NAME {
+
+    // directives
+    container 'my_container'
+
+    input:
+    data z
+    data y
+    data x
+
+    output:
+    path x
+    path y
+    path z
+
+    script:
+    task1
+    task2
+    task3
+
+}</code></pre>
+<ul>
+<li><strong><code>input:</code></strong> defines the data that the process needs.</li>
+<li><strong>Directives</strong> specify how the process should be executed, for example which container, CPU, memory, or execution environment to use.</li>
+<li><strong><code>script:</code></strong> contains the commands that will actually be executed.</li>
+<li><strong><code>output:</code></strong> defines the files or data produced by the process.</li>
+</ul>
+<p>The important idea is that a process focuses on <strong>one specific task</strong>, while Nextflow takes care of connecting the different processes together.</p>
+</section>
+<section id="channels" class="level3">
+<h3 class="anchored" data-anchor-id="channels">Channels</h3>
+<p><strong>Channels</strong> are used to transfer data between processes.</p>
+<p>For example, the output of one process can be sent through a channel and become the input of another process:</p>
+<pre class="text"><code>Process A
+    │
+    ▼
+ Channel
+    │
+    ▼
+Process B</code></pre>
+<p>This allows the different steps of a pipeline to communicate without having to manually manage the transfer of files between them.</p>
+<p>Nextflow has two main types of channels:</p>
+</section>
+<section id="queue-channels" class="level3">
+<h3 class="anchored" data-anchor-id="queue-channels">1. Queue channels</h3>
+<p>A <strong>queue channel</strong> behaves like a queue of data.</p>
+<p>Each item is consumed when a process reads it. Once an item has been consumed, it cannot normally be read again from the same queue channel.</p>
+<p>For example, imagine a channel containing three samples:</p>
+<pre class="text"><code>Channel
+ ├── sample1
+ ├── sample2
+ └── sample3</code></pre>
+<p>A process can consume these samples one by one:</p>
+<pre class="text"><code>sample1 → Process
+sample2 → Process
+sample3 → Process</code></pre>
+<p>This is particularly useful when processing many samples in a workflow.</p>
+<p>Queue channels are therefore useful when data should <strong>flow through the pipeline and be consumed by downstream processes</strong>.</p>
+</section>
+<section id="value-channels" class="level3">
+<h3 class="anchored" data-anchor-id="value-channels">2. Value channels</h3>
+<p>A <strong>value channel</strong> contains a single value that can be read <strong>multiple times without being consumed</strong>.</p>
+<p>For example:</p>
+<pre class="text"><code>Value channel
+      │
+      ├──→ Process A
+      ├──→ Process B
+      └──→ Process C</code></pre>
+<p>All three processes can access the same value.</p>
+<p>This is useful when the same information needs to be reused by several processes, such as a reference genome, a parameter, or a configuration value.</p>
+</section>
+<section id="queue-vs-value-channels" class="level3">
+<h3 class="anchored" data-anchor-id="queue-vs-value-channels">Queue vs Value channels</h3>
+<p>The main difference is therefore how the data is consumed:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 35%">
+<col style="width: 39%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Channel type</th>
+<th>Content</th>
+<th>Can be read multiple times?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Queue channel</strong></td>
+<td>A stream/queue of values</td>
+<td>❌ Normally consumed once</td>
+</tr>
+<tr class="even">
+<td><strong>Value channel</strong></td>
+<td>A single value</td>
+<td>✅ Yes, unlimited times</td>
+</tr>
+</tbody>
+</table>
+<p>Understanding the difference is important when designing more complex Nextflow workflows, especially when the same data needs to be used by several processes.</p>
+<p>For more details, see the official Nextflow documentation on <a href="https://www.nextflow.io/docs/latest/channel.html#channel-types">channel types</a>.</p>
+<p>Execution Abstraction Process → defines what should be executed.</p>
+<p>Executor → defines where and how it is executed (local, HPC, cloud).</p>
+<p>This separation makes Nextflow workflows portable across different computing environments.</p>
+<p>Nextflow uses a Groovy-based DSL, but processes can run scripts written in Bash, Python, R, Perl, Ruby, etc.</p>
+<p>First Nextflow script — l’essentiel</p>
+</section>
+<section id="setup-the-environment" class="level3">
+<h3 class="anchored" data-anchor-id="setup-the-environment">Setup the environment</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">screen</span> <span class="at">-S</span> nextflow</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> init <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add nextflow </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="hello.nf-structure" class="level3">
+<h3 class="anchored" data-anchor-id="hello.nf-structure">hello.nf structure</h3>
+<ul>
+<li><strong><code>params</code></strong> → input parameters</li>
+<li><strong><code>process</code></strong> → processing steps</li>
+<li><strong><code>input</code> / <code>output</code></strong> → data entering/leaving a process</li>
+<li><strong><code>script</code></strong> → commands to execute</li>
+<li><strong><code>workflow</code></strong> → connects processes and channels</li>
+<li><strong><code>Channel.of()</code></strong> → creates a channel</li>
+<li><strong><code>.flatten()</code></strong> → splits elements for individual processing</li>
+<li><strong><code>.view()</code></strong> → displays channel contents</li>
+</ul>
+<p><strong>Key idea:</strong> Processes do the work, channels transport data, and workflows connect the steps.</p>
+</section>
+<section id="run" class="level3">
+<h3 class="anchored" data-anchor-id="run">Run</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run hello.nf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output" class="level3">
+<h3 class="anchored" data-anchor-id="output">Output</h3>
+<ul>
+<li><code>executor &gt; local</code> → runs locally</li>
+<li><code>SPLITLETTERS (1)</code> → 1 task</li>
+<li><code>CONVERTTOUPPER (2)</code> → 2 tasks, potentially in parallel</li>
+<li><code>96/fd5f07</code> → task ID / directory in <code>work/</code></li>
+<li><code>HELLO</code>, <code>WORLD!</code> → final output</li>
+</ul>
+<p><strong>Important:</strong> Parallel tasks do not guarantee output order.</p>
+</section>
+<section id="resume" class="level3">
+<h3 class="anchored" data-anchor-id="resume">-resume</h3>
+<p>Nextflow <strong>caches process results</strong> and re-runs only the processes that changed.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run hello.nf <span class="at">-resume</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Key point:</strong> unchanged processes are skipped and their cached results are reused.</p>
+</section>
+<section id="workflow-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-parameters">Workflow parameters</h3>
+<p>Define parameters with <code>params.name</code> and override them from the command line with <code>--name</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run hello.nf <span class="at">-resume</span> <span class="at">--greeting</span> <span class="st">'Bonjour le monde!'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="configuration-priority" class="level3">
+<h3 class="anchored" data-anchor-id="configuration-priority">Configuration priority</h3>
+<p>From <strong>highest to lowest priority</strong>:</p>
+<ol type="1">
+<li>Command-line parameters</li>
+<li><code>-params-file</code></li>
+<li><code>-c</code> configuration file</li>
+<li><code>nextflow.config</code> in current directory</li>
+<li>Project <code>nextflow.config</code></li>
+<li><code>$HOME/.nextflow/config</code></li>
+<li>Parameters defined in the script</li>
+</ol>
+</section>
+<section id="clean-up" class="level3">
+<h3 class="anchored" data-anchor-id="clean-up">Clean up</h3>
+<p>View previous runs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Clean the cache and <code>work/</code> directories:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow clean <span class="at">-f</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Specify the run name and option as explained <a href="https://docs.seqera.io/nextflow/reference/cli#clean">Here</a>.</p>
+<p>Clean runs before a specific run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow clean <span class="at">-before</span> <span class="op">&lt;</span>RUN_NAME<span class="op">&gt;</span> -f</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Key point:</strong> Nextflow stores cached results in <code>work/</code>; clean it periodically when the cache is no longer needed.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

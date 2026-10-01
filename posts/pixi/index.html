@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
-<meta name="dcterms.date" content="2026-09-14">
+<meta name="author" content="Ndeye Awa Ndiaye">
+<meta name="dcterms.date" content="2026-09-15">
 
-<title>Post With Code – MedBionfo_Project</title>
+<title>Introduction to Pixi – MedBionfo_Project</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -28,6 +28,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -44,10 +79,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-919142bd09e7049e1e90ddad4aec0c4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -122,11 +157,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Introduction to Pixi</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">environments</div>
+                <div class="quarto-category">reproducibility</div>
               </div>
                   </div>
   </div>
@@ -137,14 +171,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Ndeye Awa Ndiaye </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 14, 2026</p>
+        <p class="date">September 15, 2026</p>
       </div>
     </div>
     
@@ -163,9 +197,98 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<p>Pixi is a fast, modern, and reproducible package management tool for developers of all backgrounds.</p>
+<section id="why-pixi" class="level1">
+<h1>Why Pixi?</h1>
+<p>🔄 Reproducible Environments Create isolated environments that can be recreated consistently using lock files.</p>
+<p>📦 Dependency Management Manage project dependencies and software versions in a single configuration.</p>
+<p>🛠️ Task Management Define and run project tasks directly from the Pixi environment.</p>
+<p>🌐 Cross-Platform Use the same project environment across Linux, macOS, and Windows.</p>
+<p>🧩 Multiple Environments Define different environments for different use cases within the same project.</p>
+<p>🐍 Python Support Manage Python packages and dependencies, including packages from PyPI.</p>
+<p>💾 Efficient Storage Pixi can avoid unnecessary duplication of packages between environments.</p>
+<p>🌍 Global Tools Install command-line tools in isolated environments without modifying the system environment.</p>
+</section>
+<section id="installation" class="level1">
+<h1>Installation</h1>
+<p>Install Pixi using the official installation script:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">wget</span> <span class="at">-qO-</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After installation, restart your terminal or reload your shell configuration so that pixi is available in your PATH.</p>
+<section id="for-example" class="level4">
+<h4 class="anchored" data-anchor-id="for-example">For example:</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a> <span class="bu">source</span> ~/.bashrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or, for Zsh:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a> <span class="bu">source</span> ~/.zshrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then verify the installation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a> <span class="ex">pixi</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>More information about pixi intallation are available https://pixi.prefix.dev/latest/installation/</p>
+</section>
+</section>
+<section id="creating-a-pixi-environment" class="level1">
+<h1>Creating a Pixi Environment</h1>
+<p>To create a new Pixi environment, use <code>pixi init</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> init name_pixi_training <span class="at">-c</span> conda-forge <span class="at">-c</span> bioconda</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Pixi will create a folder named <code>name_pixi_training</code> containing a <code>pixi.toml</code> file.</p>
+<p>The <code>pixi.toml</code> file contains the main information about your project and its environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">,</span> <span class="st">"bioconda"</span><span class="op">]</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"amrei_pixi_training"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">[dependencies]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="understanding-the-pixi.toml-file" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-pixi.toml-file">Understanding the pixi.toml file</h3>
+<p><strong>1. Workspace</strong> The <code>[workspace]</code> section contains the main configuration of the environment.</p>
+<p><strong>2. Channels</strong> These are the sources from which Pixi can obtain packages and tools.</p>
+<p><strong>3. Project name</strong> The name assigned to the Pixi project.</p>
+<p><strong>4. Platforms</strong> The operating system and architecture for which the environment is configured.</p>
+<p><strong>5. Tasks</strong> This section can be used to define commands that can be executed with Pixi. This is not covered in detail in this course.</p>
+<p><strong>6. Dependencies</strong> This is where the software and packages installed in the environment are listed.</p>
+</section>
+<section id="the-pixi.lock-file" class="level3">
+<h3 class="anchored" data-anchor-id="the-pixi.lock-file">The pixi.lock file</h3>
+<p>Pixi also creates a <code>pixi.lock</code> file. This file records the exact packages and versions used by the environment, together with information such as channels, package sources, licenses, and checksums.</p>
+<blockquote class="blockquote">
+<p><strong>Important:</strong> Do not delete the <code>pixi.toml</code> or <code>pixi.lock</code> files. They are essential for reproducing the environment.</p>
+</blockquote>
+</section>
+<section id="adding-software-to-the-environment" class="level2">
+<h2 class="anchored" data-anchor-id="adding-software-to-the-environment">Adding Software to the Environment</h2>
+<p>Adding a dependency to the project tells Pixi to install that software.</p>
+<p>Use:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add <span class="op">&lt;</span>package<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add quarto</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should run <code>pixi add</code> from inside the Pixi project directory.</p>
+</section>
+<section id="running-software-with-pixi" class="level2">
+<h2 class="anchored" data-anchor-id="running-software-with-pixi">Running Software with Pixi</h2>
+<p>Once a tool has been installed in the Pixi environment, you can run it using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run quarto <span class="at">--help</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This works even if <code>quarto</code> is not installed globally on your system.</p>
+<p>In contrast:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> <span class="at">--help</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>may not work because Quarto is installed only inside the Pixi environment.</p>
+</section>
+<section id="entering-the-environment" class="level2">
+<h2 class="anchored" data-anchor-id="entering-the-environment">Entering the Environment</h2>
+<p>Alternatively, you can enter the environment with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> shell</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Once inside the environment, you can use the installed tools directly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> <span class="at">--help</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is somewhat similar to activating a Conda environment.</p>
+<p>To leave the environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> <code>pixi shell</code> may not be available or may behave differently on some HPC systems. For example, it does not work as expected on HPC2N. In such cases, <code>pixi run</code> can be used instead.</p>
+</blockquote>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

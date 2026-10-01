@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
-<meta name="dcterms.date" content="2026-09-14">
+<meta name="author" content="Ndeye Awa Ndiaye">
+<meta name="dcterms.date" content="2026-09-17">
 
-<title>Post With Code – MedBionfo_Project</title>
+<title>nf-core – MedBionfo_Project</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -28,6 +28,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -44,10 +79,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-919142bd09e7049e1e90ddad4aec0c4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -122,11 +157,13 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">nf-core</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">nf-core</div>
+                <div class="quarto-category">workflow</div>
+                <div class="quarto-category">reproducibility</div>
+                <div class="quarto-category">RNAseq</div>
+                <div class="quarto-category">HPC</div>
               </div>
                   </div>
   </div>
@@ -137,14 +174,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Ndeye Awa Ndiaye </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 14, 2026</p>
+        <p class="date">September 17, 2026</p>
       </div>
     </div>
     
@@ -163,9 +200,176 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<section id="nf-core" class="level2">
+<h2 class="anchored" data-anchor-id="nf-core">nf-core</h2>
+<p><strong>nf-core</strong> is a community-driven collection of <strong>open-source Nextflow pipelines</strong> for bioinformatics. It also provides reusable <strong>modules</strong>, training materials, documentation standards, and development templates.</p>
+<section id="why-use-nf-core" class="level3">
+<h3 class="anchored" data-anchor-id="why-use-nf-core">Why use nf-core?</h3>
+<ul>
+<li>🧬 Ready-to-use pipelines for many bioinformatics analyses</li>
+<li>🔄 <strong>Reproducible and portable</strong> through Nextflow and containers</li>
+<li>📚 Extensive and standardized documentation</li>
+<li>📦 Reusable modules and standardized workflows</li>
+<li>⚙️ Input validation and standardized configuration</li>
+<li>🔁 Supports Nextflow features such as parallel execution and <code>resume</code></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Important:</strong> nf-core pipelines should not be treated as black boxes. You are still responsible for checking whether the pipeline, input data quality, parameters, and outputs are appropriate for your analysis.</p>
+</blockquote>
+</section>
+<section id="finding-a-pipeline" class="level3">
+<h3 class="anchored" data-anchor-id="finding-a-pipeline">Finding a pipeline</h3>
+<p>The <a href="https://nf-co.re/">nf-core website</a> provides a catalog of available pipelines.</p>
+<p>For each pipeline, check:</p>
+<ul>
+<li><strong>Usage</strong> → how to run it and required inputs</li>
+<li><strong>Parameters</strong> → available options</li>
+<li><strong>Output</strong> → files and results produced</li>
+</ul>
+<p>For example, <a href="https://nf-co.re/rnaseq/">nf-core/rnaseq</a> is a pipeline for RNA-seq analysis.</p>
+</section>
+<section id="running-on-an-hpc-cluster" class="level3">
+<h3 class="anchored" data-anchor-id="running-on-an-hpc-cluster">Running on an HPC cluster</h3>
+<p>For HPC systems using <strong>SLURM</strong>, a configuration file defines how Nextflow should submit jobs and which resources are available.</p>
+<p>Important settings include:</p>
+<ul>
+<li><code>max_memory</code></li>
+<li><code>max_cpus</code></li>
+<li><code>max_time</code></li>
+<li><code>executor = 'slurm'</code></li>
+</ul>
+<p>For example, an HPC2N configuration can be downloaded with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://raw.githubusercontent.com/hpc2n/intro-course/master/exercises/NEXTFLOW/INTERACTIVE/hpc2n.config</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The compute project must then be specified in the configuration.</p>
+</section>
+<section id="running-a-test-pipeline" class="level3">
+<h3 class="anchored" data-anchor-id="running-a-test-pipeline">Running a test pipeline</h3>
+<p>Example using <strong>nf-core/rnaseq</strong>, a variant-calling pipeline:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run nf-core/rnaseq <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-profile</span> test <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--outdir</span> rnaseq_test <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-c</span> hpc2n.config</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Key options:</p>
+<ul>
+<li><code>pixi run</code> → use the Pixi environment</li>
+<li><code>nextflow run</code> → execute a Nextflow pipeline</li>
+<li><code>nf-core/sarek</code> → pipeline to run</li>
+<li><code>-profile test</code> → use the built-in test data/profile</li>
+<li><code>--outdir</code> → output directory</li>
+<li><code>-c</code> → HPC configuration file</li>
+</ul>
+</section>
+<section id="important" class="level3">
+<h3 class="anchored" data-anchor-id="important">🔎 Important</h3>
+<p>After running a pipeline, always check:</p>
+<p><strong>What happened? → What outputs were generated? → Are the results and pipeline appropriate for my data?</strong></p>
+</section>
+</section>
+<section id="configure-the-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="configure-the-pipeline">Configure the Pipeline</h2>
+<p>The <strong>nf-core launcher</strong> helps generate the parameters required to run the pipeline.</p>
+<p>For <a href="https://nf-co.re/rnaseq/">nf-core/rnaseq</a>, the main files to prepare are:</p>
+<ul>
+<li><strong>Samplesheet (<code>.csv</code>)</strong> → describes the samples and FASTQ files.</li>
+<li><strong>Reference genome (<code>.fa</code>)</strong> → the reference genome used for the analysis.</li>
+<li><strong>GTF file (<code>.gtf</code>)</strong> → provides the gene/transcript annotations.</li>
+<li><strong>Parameter file (<code>nf-params.json</code>)</strong> → contains the configuration of the run.</li>
+<li><strong>HPC configuration (<code>hpc2n.config</code>)</strong> → defines how Nextflow runs on the HPC cluster.</li>
+</ul>
+<p>Use <strong>absolute paths</strong> for files and directories, especially when working on an HPC system.</p>
+<section id="create-the-samplesheet" class="level3">
+<h3 class="anchored" data-anchor-id="create-the-samplesheet">1. Create the samplesheet</h3>
+<p>Create a CSV file, for example:</p>
+<pre class="text"><code>Samplesheet.csv</code></pre>
+<p>The samplesheet contains the following columns:</p>
+<pre class="text"><code>sample,fastq_1,fastq_2,strandedness,seq_platform</code></pre>
+<p>Example:</p>
+<pre class="csv"><code>sample,fastq_1,fastq_2,strandedness,seq_platform
+CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz,auto,ILLUMINA
+CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz,auto,ILLUMINA
+CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz,auto,ILLUMINA</code></pre>
+<ul>
+<li><code>sample</code> → sample identifier</li>
+<li><code>fastq_1</code> → forward/read 1 FASTQ file</li>
+<li><code>fastq_2</code> → reverse/read 2 FASTQ file</li>
+<li><code>strandedness</code> → library strandedness (<code>auto</code> in this example)</li>
+<li><code>seq_platform</code> → sequencing platform (<code>ILLUMINA</code> here)</li>
+</ul>
+<p>The FASTQ filenames should correspond to the files available in your <code>data/</code> directory.</p>
+</section>
+<section id="add-the-reference-files" class="level3">
+<h3 class="anchored" data-anchor-id="add-the-reference-files">2. Add the reference files</h3>
+<p>For the RNA-seq analysis, provide:</p>
+<ul>
+<li>the <strong>reference genome</strong> in FASTA format (<code>.fa</code> or <code>.fa.gz</code>)</li>
+<li>the corresponding <strong>GTF annotation</strong> (<code>.gtf</code> or <code>.gtf.gz</code>)</li>
+</ul>
+<p>For example:</p>
+<pre class="text"><code>Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz
+Homo_sapiens.GRCh38.108.gtf.gz</code></pre>
+<p>These files should be accessible from the HPC and their <strong>absolute paths</strong> should be specified in the parameter file.</p>
+</section>
+<section id="create-the-parameter-file" class="level3">
+<h3 class="anchored" data-anchor-id="create-the-parameter-file">3. Create the parameter file</h3>
+<p>Create a file named:</p>
+<pre class="text"><code>nf-params.json</code></pre>
+<p>Example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"input"</span><span class="fu">:</span> <span class="st">"/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/Samplesheet.csv"</span><span class="fu">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"outdir"</span><span class="fu">:</span> <span class="st">"/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/"</span><span class="fu">,</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"fasta"</span><span class="fu">:</span> <span class="st">"/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa.gz"</span><span class="fu">,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"gtf"</span><span class="fu">:</span> <span class="st">"/proj/nobackup/repbio26/ndeye/nf-core-rnaseq/Homo_sapiens.GRCh38.108.gtf.gz"</span><span class="fu">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"save_reference"</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The main parameters are:</p>
+<ul>
+<li><code>input</code> → path to the samplesheet</li>
+<li><code>outdir</code> → directory where results will be saved</li>
+<li><code>fasta</code> → path to the reference genome</li>
+<li><code>gtf</code> → path to the GTF annotation</li>
+<li><code>save_reference</code> → must be added manually to the JSON file after using the nf-core launcher. Setting it to true tells the pipeline to save the reference files generated/prepared during the run for future reuse.</li>
+</ul>
+</section>
+<section id="run-the-pipeline-on-hpc" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-pipeline-on-hpc">4. Run the pipeline on HPC</h3>
+<p>Use the HPC configuration file to specify the <strong>SLURM executor and available resources</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run nextflow run nf-core/rnaseq <span class="dt">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-r</span> 3.26.0 <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-resume</span> <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-params-file</span> nf-params.json <span class="dt">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-c</span> hpc2n.config</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The main components are:</p>
+<ul>
+<li><code>pixi run</code> → use the Pixi environment</li>
+<li><code>nextflow run</code> → run Nextflow</li>
+<li><code>nf-core/rnaseq</code> → RNA-seq pipeline</li>
+<li><code>-r 3.26.0</code> → pipeline version</li>
+<li><code>-resume</code> → reuse successfully completed processes</li>
+<li><code>-params-file nf-params.json</code> → use the pipeline parameters</li>
+<li><code>-c hpc2n.config</code> → use the HPC/SLURM configuration</li>
+</ul>
+<p>The pipeline can also be submitted through <strong>SLURM using <code>sbatch</code></strong>.</p>
+</section>
+<section id="monitor" class="level3">
+<h3 class="anchored" data-anchor-id="monitor">5. Monitor</h3>
+<p>Check running jobs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> your_username</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="useful-links" class="level3">
+<h3 class="anchored" data-anchor-id="useful-links">Useful links</h3>
+<ul>
+<li><a href="https://nf-co.re/">nf-core</a></li>
+<li><a href="https://nf-co.re/pipelines">nf-core pipelines</a></li>
+<li><a href="https://nf-co.re/rnaseq/">nf-core/rnaseq</a></li>
+<li><a href="https://nf-co.re/sarek/">nf-core/Sarek</a></li>
+<li><a href="https://nf-co.re/docs/">nf-core documentation</a></li>
+<li><a href="https://training.nextflow.io/latest/">Nextflow training</a></li>
+<li><a href="https://nf-co.re/docs/usage/reference_genomes#custom-genomes">Custom reference genomes</a></li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
