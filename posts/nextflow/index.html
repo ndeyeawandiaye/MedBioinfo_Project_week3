@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f88bd10c16c0f9d5f8c1c43286ccff33.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-52517ed2597eb70eb261267019d0b4f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,12 +110,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background-image: url(nextflow.png);
+background-size: cover;
+      }
+</style>
 
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -190,7 +198,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul>
+  <li><a href="#nextflow---key-points" id="toc-nextflow---key-points" class="nav-link active" data-scroll-target="#nextflow---key-points">Nextflow - Key Points</a></li>
+  <li><a href="#understanding-nextflow-processes-and-channels" id="toc-understanding-nextflow-processes-and-channels" class="nav-link" data-scroll-target="#understanding-nextflow-processes-and-channels">Understanding Nextflow Processes and Channels</a>
+  <ul class="collapse">
+  <li><a href="#process-blocks" id="toc-process-blocks" class="nav-link" data-scroll-target="#process-blocks">Process blocks</a></li>
+  <li><a href="#channels" id="toc-channels" class="nav-link" data-scroll-target="#channels">Channels</a></li>
+  <li><a href="#queue-channels" id="toc-queue-channels" class="nav-link" data-scroll-target="#queue-channels">1. Queue channels</a></li>
+  <li><a href="#value-channels" id="toc-value-channels" class="nav-link" data-scroll-target="#value-channels">2. Value channels</a></li>
+  <li><a href="#queue-vs-value-channels" id="toc-queue-vs-value-channels" class="nav-link" data-scroll-target="#queue-vs-value-channels">Queue vs Value channels</a></li>
+  <li><a href="#setup-the-environment" id="toc-setup-the-environment" class="nav-link" data-scroll-target="#setup-the-environment">Setup the environment</a></li>
+  <li><a href="#hello.nf-structure" id="toc-hello.nf-structure" class="nav-link" data-scroll-target="#hello.nf-structure">hello.nf structure</a></li>
+  <li><a href="#run" id="toc-run" class="nav-link" data-scroll-target="#run">Run</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
+  <li><a href="#resume" id="toc-resume" class="nav-link" data-scroll-target="#resume">-resume</a></li>
+  <li><a href="#workflow-parameters" id="toc-workflow-parameters" class="nav-link" data-scroll-target="#workflow-parameters">Workflow parameters</a></li>
+  <li><a href="#configuration-priority" id="toc-configuration-priority" class="nav-link" data-scroll-target="#configuration-priority">Configuration priority</a></li>
+  <li><a href="#clean-up" id="toc-clean-up" class="nav-link" data-scroll-target="#clean-up">Clean up</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -488,6 +520,13 @@ sample3 → Process</code></pre>
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -806,4 +845,5 @@ sample3 → Process</code></pre>
 
 
 
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

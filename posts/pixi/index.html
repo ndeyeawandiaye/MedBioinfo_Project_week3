@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8e9cdf78b4bd664e9e5387a0e3cac766.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-52517ed2597eb70eb261267019d0b4f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,12 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -189,7 +190,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul>
+  <li><a href="#why-pixi" id="toc-why-pixi" class="nav-link active" data-scroll-target="#why-pixi">Why Pixi?</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#creating-a-pixi-environment" id="toc-creating-a-pixi-environment" class="nav-link" data-scroll-target="#creating-a-pixi-environment">Creating a Pixi Environment</a>
+  <ul class="collapse">
+  <li><a href="#understanding-the-pixi.toml-file" id="toc-understanding-the-pixi.toml-file" class="nav-link" data-scroll-target="#understanding-the-pixi.toml-file">Understanding the pixi.toml file</a></li>
+  <li><a href="#the-pixi.lock-file" id="toc-the-pixi.lock-file" class="nav-link" data-scroll-target="#the-pixi.lock-file">The pixi.lock file</a></li>
+  <li><a href="#adding-software-to-the-environment" id="toc-adding-software-to-the-environment" class="nav-link" data-scroll-target="#adding-software-to-the-environment">Adding Software to the Environment</a></li>
+  <li><a href="#running-software-with-pixi" id="toc-running-software-with-pixi" class="nav-link" data-scroll-target="#running-software-with-pixi">Running Software with Pixi</a></li>
+  <li><a href="#entering-the-environment" id="toc-entering-the-environment" class="nav-link" data-scroll-target="#entering-the-environment">Entering the Environment</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -378,6 +396,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -696,4 +721,5 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

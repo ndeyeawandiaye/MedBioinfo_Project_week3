@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8e9cdf78b4bd664e9e5387a0e3cac766.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-52517ed2597eb70eb261267019d0b4f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,12 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -189,7 +190,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul>
+  <li><a href="#containers" id="toc-containers" class="nav-link active" data-scroll-target="#containers">Containers</a>
+  <ul class="collapse">
+  <li><a href="#why-containers" id="toc-why-containers" class="nav-link" data-scroll-target="#why-containers">Why containers?</a></li>
+  <li><a href="#apptainer" id="toc-apptainer" class="nav-link" data-scroll-target="#apptainer">Apptainer</a></li>
+  <li><a href="#downloading-container-images" id="toc-downloading-container-images" class="nav-link" data-scroll-target="#downloading-container-images">Downloading container images</a></li>
+  <li><a href="#running-containers" id="toc-running-containers" class="nav-link" data-scroll-target="#running-containers">Running containers</a>
+  <ul class="collapse">
+  <li><a href="#exec" id="toc-exec" class="nav-link" data-scroll-target="#exec"><code>exec</code></a></li>
+  <li><a href="#run" id="toc-run" class="nav-link" data-scroll-target="#run"><code>run</code></a></li>
+  <li><a href="#shell" id="toc-shell" class="nav-link" data-scroll-target="#shell"><code>shell</code></a></li>
+  </ul></li>
+  <li><a href="#binding-directories" id="toc-binding-directories" class="nav-link" data-scroll-target="#binding-directories">Binding directories</a></li>
+  <li><a href="#containers-with-slurm" id="toc-containers-with-slurm" class="nav-link" data-scroll-target="#containers-with-slurm">Containers with SLURM</a></li>
+  <li><a href="#building-a-container" id="toc-building-a-container" class="nav-link" data-scroll-target="#building-a-container">Building a container</a></li>
+  <li><a href="#run-vs-exec" id="toc-run-vs-exec" class="nav-link" data-scroll-target="#run-vs-exec"><code>run</code> vs <code>exec</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -410,6 +434,13 @@ From: ubuntu:22.04
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -728,4 +759,5 @@ From: ubuntu:22.04
 
 
 
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

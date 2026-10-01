@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8e9cdf78b4bd664e9e5387a0e3cac766.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-52517ed2597eb70eb261267019d0b4f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,12 +110,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -190,7 +191,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul>
+  <li><a href="#quality-control-of-sequencing-data" id="toc-quality-control-of-sequencing-data" class="nav-link active" data-scroll-target="#quality-control-of-sequencing-data">Quality Control of Sequencing Data</a>
+  <ul class="collapse">
+  <li><a href="#main-concepts" id="toc-main-concepts" class="nav-link" data-scroll-target="#main-concepts">🔬 Main concepts</a></li>
+  <li><a href="#typical-qc-workflow" id="toc-typical-qc-workflow" class="nav-link" data-scroll-target="#typical-qc-workflow">🧪 Typical QC workflow</a></li>
+  <li><a href="#screen-gnu-screen" id="toc-screen-gnu-screen" class="nav-link" data-scroll-target="#screen-gnu-screen">Screen / GNU Screen</a></li>
+  <li><a href="#creating-symbolic-links" id="toc-creating-symbolic-links" class="nav-link" data-scroll-target="#creating-symbolic-links">Creating Symbolic Links</a></li>
+  <li><a href="#why-use-symbolic-links" id="toc-why-use-symbolic-links" class="nav-link" data-scroll-target="#why-use-symbolic-links">Why use symbolic links?</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">💻 Example</a></li>
+  <li><a href="#key-takeaway" id="toc-key-takeaway" class="nav-link" data-scroll-target="#key-takeaway">🔑 Key takeaway</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -363,6 +381,13 @@ Assess data quality</code></pre>
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -681,4 +706,5 @@ Assess data quality</code></pre>
 
 
 
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
