@@ -4,7 +4,7 @@ author: "Ndeye Awa Ndiaye"
 date: "2026-09-16"
 categories:  [workflow, reproducibility, bioinformatics]
 image: "nextflow.png"
-backgroundcolor: "#2A363B"
+title-block-banner: "nextflow.png"
 ---
 An introduction to Nextflow and workflow managers, focusing on how they automate bioinformatics pipelines and improve reproducibility, portability, scalability, and resource management.
 
